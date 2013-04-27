@@ -1,6 +1,9 @@
 "use strict";
 
-function WaveGenerator() {
+function WaveGenerator(levelData) {
+    this.currentLevel = levelData;
+    
+    return Object.preventExtensions(this);
 }
 
 WaveGenerator.prototype = Object.create(null);
@@ -10,6 +13,7 @@ Object.defineProperties(WaveGenerator.prototype, {
     processTick: {
         // Frame based tick advancement, no time delta
         value: function processTick() {
+            if (
         }
     },
 });

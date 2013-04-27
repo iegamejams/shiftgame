@@ -1,10 +1,14 @@
 "use strict";
 
-function GameEngine(levelData) {
+function GameEngine(levelData, waveProgressUIWrapper) {
     // Pre-define all properties because once we preventExtensions on the object we can't add anymore.
     this.level = -1;
     this.levelData = levelData;
+    
+    // The wave generator will be constructed and assigned during advanceLevel.
     this.waveGenerator;
+    this.waveProgress = waveProgressUIWrapper;
+    
     this.eventHandlers = {};
     
     return Object.preventExtension(this);
@@ -17,17 +21,36 @@ Object.defineProperties(GameEngine.prototype, {
     advanceLevel: {
         value: function advanceLevel() {
             this.level++;
-            
             if (this.level >= 0 && this.level < this.levelData.length) {
+                this.restartLevel();
             }
             else {
-                this.dispatchEvent("win");
+                this.levelInProgress = false;
+                this.dispatchEvent("Win");
             }
         }
     },
+    restartLevel: {
+        value: function restartLevel() {
+            this.levelInProgress = true;
+            this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
+        }
+    }
 
     processTick: {
         value: function processTick() {
+            if (this.levelInProgress) {
+                // Tick all of our dependent objects
+                this.waveGenerator.processTick();
+                
+                // Update all of our UI states
+                this.waveProgress.updateUI();
+                
+                // Determine that we need another requestAnimationFrame();
+                return true;
+            }
+            // We don't need another requestAnimationFrame so we can stop the game loop.
+            return false;
         }
     },
     
