@@ -11,7 +11,7 @@ function GameEngine(levelData, waveProgressUIWrapper) {
     
     this.eventHandlers = {};
     
-    return Object.preventExtension(this);
+    return Object.preventExtensions(this);
 }
 
 GameEngine.prototype = Object.create(null);
@@ -34,6 +34,7 @@ Object.defineProperties(GameEngine.prototype, {
         value: function restartLevel() {
             this.levelInProgress = true;
             this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
+            this.waveProgressUIWrapper.initUI(this.waveGenerator);
         }
     }
 
@@ -44,7 +45,7 @@ Object.defineProperties(GameEngine.prototype, {
                 this.waveGenerator.processTick();
                 
                 // Update all of our UI states
-                this.waveProgress.updateUI();
+                this.waveProgress.updateUI(this.waveGenerator);
                 
                 // Determine that we need another requestAnimationFrame();
                 return true;

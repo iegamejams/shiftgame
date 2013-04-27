@@ -69,24 +69,29 @@
             background-color: red;
         }
 
-            #panelPieceHints::before
-            {
-                content: "Hints";
-            }
+        #panelPieceHints::before {
+            content: "Hints";
+        }
 
-        #panelWaveProgress
-        {
+        #panelWaveProgress {
             left: 776px;
             top: 0px;
             width: 248px;
             height: 100px;
-            background-color: green;
         }
 
-            #panelWaveProgress::before
-            {
-                content: "Wave Progress";
-            }
+        #waveProgressUI {
+        }
+        #progressBar {
+            margin: 35px;
+            margin-left: 30px;
+            margin-right: 30px;
+            height: 30px;
+            background-color: blue;
+        }
+        #progressIndicator {
+            display: none;
+        }
 
         #panelBlackSquare
         {
@@ -149,19 +154,29 @@
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
 
+    <!-- UI Wrapper Components -->
+    <script type="text/javascript" src="js/ui/UIElement.js"></script>
+    <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
+
     <script>
         //Global Variable
         var _adGenerator = null;
+        var gameEngine;
 
         function Init() {
-            // TOOD: Init the game engine itself
             _adGenerator = new AdGenerator();
+
+            var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
+            gameEngine = new GameEngine(null, waveUI);
+
             requestAnimationFrame(GameLoop);
         }
 
         function GameLoop() {
-            requestAnimationFrame(GameLoop);
+            gameEngine.processTick();
             _adGenerator.processTick();
+
+            requestAnimationFrame(GameLoop);
         }
     </script>
 </head>
@@ -173,6 +188,12 @@
             <div id="panelPieceHints" class="subPanel">
             </div>
             <div id="panelWaveProgress" class="subPanel">
+                <div id="waveProgressUI">
+                    <div id="progressBar">
+                        <div id="progressIndicator">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
