@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <script src="../js/ui/UIElement.js"></script>
+        <script src="../js/ui/WaveProgressUI.js"></script>
+        <script>
+        var testWaveUI;
+        function Init() {
+            testWaveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
+        }
+        </script>
+    </head>
+    <body onload="Init();">
+        <div id="waveProgressUI">
+            <div id="progressBar"></div>
+        </div>
+    </body>
+</html>
