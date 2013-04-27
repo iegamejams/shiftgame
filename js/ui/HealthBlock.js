@@ -1,3 +1,5 @@
+"use strict";
+
 function clamp(val, max) {
     if (val > max) {
         return max;
@@ -10,7 +12,7 @@ function HealthBlock() {
     this.green = 0;
     this.blue = 0;
     
-    return Object.preventExtension(this);
+    return this;
 }
 
 HealthBlock.prototype = Object.create(null);
