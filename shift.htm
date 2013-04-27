@@ -1,113 +1,154 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Shift: Simple, Colorful, Fun</title>
-        <style>
-        .screen {
+<head>
+    <title>Shift: Simple, Colorful, Fun</title>
+    <style>
+        .screen
+        {
             position: absolute;
             left: 0px;
             top: 0px;
             width: 1024px;
             height: 712px;
         }
-        .panel {
+
+        .panel
+        {
             position: absolute;
         }
-        .subPanel {
+
+        .subPanel
+        {
             position: absolute;
         }
-        #panelTop {
+
+        #panelTop
+        {
             left: 0px;
             top: 0px;
             width: 1024px;
             height: 100px;
         }
-        #panelMid {
+
+        #panelMid
+        {
             left: 0px;
             top: 108px;
             width: 1024px;
             height: 448px;
         }
-        #panelBottom {
+
+        #panelBottom
+        {
             left: 0px;
             top: 564px;
             width: 1024px;
             height: 64px;
         }
 
-        #panelAd {
+        #panelAd
+        {
             left: 0px;
             top: 0px;
             width: 248px;
             height: 100px;
             background-color: purple;
         }
-        #panelAd::before {
-            content: "Ad Space";
-        }
-        #panelPieceHints {
+
+            #panelAd::before
+            {
+                content: "Ad Space";
+            }
+
+        #panelPieceHints
+        {
             left: 256px;
             width: 512px;
             height: 100px;
             background-color: red;
         }
-        #panelPieceHints::before {
-            content: "Hints";
-        }
-        #panelWaveProgress {
+
+            #panelPieceHints::before
+            {
+                content: "Hints";
+            }
+
+        #panelWaveProgress
+        {
             left: 776px;
             top: 0px;
             width: 248px;
             height: 100px;
             background-color: green;
         }
-        #panelWaveProgress::before {
-            content: "Wave Progress";
-        }
 
-        #panelBlackSquare {
+            #panelWaveProgress::before
+            {
+                content: "Wave Progress";
+            }
+
+        #panelBlackSquare
+        {
             left: 0px;
             top: 0px;
             width: 248px;
             height: 448px;
             background-color: orange;
         }
-        #panelBlackSquare::before {
-            content: "Malevich says, don't be a bitch";
-        }
-        #panelGameBoard {
+
+            #panelBlackSquare::before
+            {
+                content: "Malevich says, don't be a bitch";
+            }
+
+        #panelGameBoard
+        {
             top: 0px;
             left: 256px;
             width: 768px;
             height: 448px;
             background-color: yellow;
         }
-        #panelGameBoard::before {
-            content: "Game Board";
-        }
 
-        #panelSocial {
+            #panelGameBoard::before
+            {
+                content: "Game Board";
+            }
+
+        #panelSocial
+        {
             left: 0px;
             top: 0px;
             width: 248px;
             height: 64px;
             background-color: blue;
         }
-        #panelSocial::before {
-            content: "Social Networking";
-        }
-        #panelSliders {
+
+            #panelSocial::before
+            {
+                content: "Social Networking";
+            }
+
+        #panelSliders
+        {
             left: 256px;
             top: 0px;
             width: 512px;
             height: 64px;
             background-color: darkgreen;
         }
-        #panelSliders::before {
-            content: "Slider Area"
-        }
-        </style>
-        <script>
+
+            #panelSliders::before
+            {
+                content: "Slider Area";
+            }
+    </style>
+
+    <script type="text/javascript" src="js/GameEngine.js"></script>
+    <script type="text/javascript" src="js/WaveGenerator.js"></script>
+    <script type="text/javascript" src="js/AdGenerator.js"></script>
+
+    <script>
         function Init() {
             // TOOD: Init the game engine itself
 
@@ -117,32 +158,32 @@
         function GameLoop() {
             requestAnimationFrame(GameLoop);
         }
-        </script>
-    </head>
-    <body onload="Init();">
-        <div id="screenBoard" class="screen">
-            <div id="panelTop" class="panel">
-                <div id="panelAd" class="subPanel">
-                </div>
-                <div id="panelPieceHints" class="subPanel">
-                </div>
-                <div id="panelWaveProgress" class="subPanel">
-                </div>
+    </script>
+</head>
+<body onload="Init();">
+    <div id="screenBoard" class="screen">
+        <div id="panelTop" class="panel">
+            <div id="panelAd" class="subPanel">
             </div>
-
-            <div id="panelMid" class="panel">
-                <div id="panelBlackSquare" class="subPanel">
-                </div>
-                <div id="panelGameBoard" class="subPanel">
-                </div>
+            <div id="panelPieceHints" class="subPanel">
             </div>
-
-            <div id="panelBottom" class="panel">
-                <div id="panelSocial" class="subPanel">
-                </div>
-                <div id="panelSliders" class="subPanel">
-                </div>
+            <div id="panelWaveProgress" class="subPanel">
             </div>
         </div>
-    </body>
+
+        <div id="panelMid" class="panel">
+            <div id="panelBlackSquare" class="subPanel">
+            </div>
+            <div id="panelGameBoard" class="subPanel">
+            </div>
+        </div>
+
+        <div id="panelBottom" class="panel">
+            <div id="panelSocial" class="subPanel">
+            </div>
+            <div id="panelSliders" class="subPanel">
+            </div>
+        </div>
+    </div>
+</body>
 </html>
