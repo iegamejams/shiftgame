@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shift: Simple, Colorful, Fun</title>
+        <style>
+        .screen {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 1024px;
+            height: 712px;
+        }
+        .panel {
+            position: absolute;
+        }
+        .subPanel {
+            position: absolute;
+        }
+        #panelTop {
+            left: 0px;
+            top: 0px;
+            width: 1024px;
+            height: 100px;
+        }
+        #panelMid {
+            left: 0px;
+            top: 108px;
+            width: 1024px;
+            height: 512px;
+        }
+        #panelBottom {
+            left: 0px;
+            top: 628px;
+            width: 1024px;
+            height: 64px;
+        }
+
+        #panelAd {
+            left: 0px;
+            top: 0px;
+            width: 248px;
+            height: 100px;
+            background-color: purple;
+        }
+        #panelAd::before {
+            content: "Ad Space";
+        }
+        #panelPieceHints {
+            left: 256px;
+            width: 512px;
+            height: 100px;
+            background-color: red;
+        }
+        #panelPieceHints::before {
+            content: "Hints";
+        }
+        #panelWaveProgress {
+            left: 776px;
+            top: 0px;
+            width: 248px;
+            height: 100px;
+            background-color: green;
+        }
+        #panelWaveProgress::before {
+            content: "Wave Progress";
+        }
+
+        #panelBlackSquare {
+            left: 0px;
+            top: 0px;
+            width: 248px;
+            height: 512px;
+            background-color: orange;
+        }
+        #panelBlackSquare::before {
+            content: "Malevich says, don't be a bitch";
+        }
+        #panelGameBoard {
+            top: 0px;
+            left: 256px;
+            width: 768px;
+            height: 512px;
+            background-color: yellow;
+        }
+        #panelGameBoard::before {
+            content: "Game Board";
+        }
+
+        #panelSocial {
+            left: 0px;
+            top: 0px;
+            width: 248px;
+            height: 64px;
+            background-color: blue;
+        }
+        #panelSocial::before {
+            content: "Social Networking";
+        }
+        #panelSliders {
+            left: 256px;
+            top: 0px;
+            width: 512px;
+            height: 64px;
+            background-color: darkgreen;
+        }
+        #panelSliders::before {
+            content: "Slider Area"
+        }
+        </style>
+        <script>
+        function Init() {
+            // TOOD: Init the game engine itself
+
+            requestAnimationFrame(GameLoop);
+        }
+
+        function GameLoop() {
+            requestAnimationFrame(GameLoop);
+        }
+        </script>
+    </head>
+    <body onload="Init();">
+        <div id="screenBoard" class="screen">
+            <div id="panelTop" class="panel">
+                <div id="panelAd" class="subPanel">
+                </div>
+                <div id="panelPieceHints" class="subPanel">
+                </div>
+                <div id="panelWaveProgress" class="subPanel">
+                </div>
+            </div>
+
+            <div id="panelMid" class="panel">
+                <div id="panelBlackSquare" class="subPanel">
+                </div>
+                <div id="panelGameBoard" class="subPanel">
+                </div>
+            </div>
+
+            <div id="panelBottom" class="panel">
+                <div id="panelSocial" class="subPanel">
+                </div>
+                <div id="panelSliders" class="subPanel">
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
