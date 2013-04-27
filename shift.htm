@@ -142,6 +142,20 @@
             {
                 content: "Slider Area";
             }
+        
+        #templates {
+            display: none;
+        }
+        .block {
+            width: 48px;
+            height: 48px;
+        }
+        .path {
+            stroke: #00f;
+            stroke-width: 4px;
+            fill: #00f;
+            fill-opacity: 0.6;
+        }
     </style>
 
     <script type="text/javascript" src="js/GameEngine.js"></script>
@@ -183,6 +197,32 @@
             </div>
             <div id="panelSliders" class="subPanel">
             </div>
+        </div>
+        
+        <div id="templates">
+            <svg class="square block" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="2" width="44" height="44" class="path"/>
+            </svg>
+
+            <svg class="circle block" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" class="path"/>
+            </svg>
+
+            <svg class="triangle block" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="2,46 24,2 46,46" class="path"/>
+            </svg>
+
+            <svg class="cross block" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"/>
+            </svg>
+
+            <svg class="diamond block" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="8,24 24,2 40,24 24,46" class="path"/>
+            </svg>
+
+            <svg class="pentagon block" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"/>
+            </svg>
         </div>
     </div>
 </body>
