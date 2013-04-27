@@ -52,7 +52,8 @@
             top: 0px;
             width: 248px;
             height: 100px;
-            background-color: purple;
+            background-color: white;
+            border-color:purple;
         }
 
             #panelAd::before
@@ -149,14 +150,18 @@
     <script type="text/javascript" src="js/AdGenerator.js"></script>
 
     <script>
+        //Global Variable
+        var _adGenerator = null;
+
         function Init() {
             // TOOD: Init the game engine itself
-
+            _adGenerator = new AdGenerator();
             requestAnimationFrame(GameLoop);
         }
 
         function GameLoop() {
             requestAnimationFrame(GameLoop);
+            _adGenerator.processTick();
         }
     </script>
 </head>
