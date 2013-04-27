@@ -36,7 +36,7 @@ Object.defineProperties(GameEngine.prototype, {
             this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
             this.waveProgressUIWrapper.initUI(this.waveGenerator);
         }
-    }
+    },
 
     processTick: {
         value: function processTick() {
