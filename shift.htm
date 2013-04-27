@@ -73,8 +73,7 @@
                 content: "Hints";
             }
 
-        #panelWaveProgress
-        {
+        #panelWaveProgress {
             left: 776px;
             top: 0px;
             width: 248px;
@@ -82,10 +81,18 @@
             background-color: green;
         }
 
-            #panelWaveProgress::before
-            {
-                content: "Wave Progress";
-            }
+        #waveProgressUI {
+        }
+        #progressBar {
+            margin: 35px;
+            margin-left: 30px;
+            margin-right: 30px;
+            height: 30px;
+            background-color: blue;
+        }
+        #progressIndicator {
+            display: none;
+        }
 
         #panelBlackSquare
         {
@@ -101,19 +108,16 @@
                 content: "Malevich says, don't be a bitch";
             }
 
-        #panelGameBoard
-        {
+        #panelGameBoard {
             top: 0px;
             left: 256px;
             width: 768px;
             height: 448px;
             background-color: yellow;
         }
-
-            #panelGameBoard::before
-            {
-                content: "Game Board";
-            }
+        #panelGameBoard::before {
+            content: "Game Board";
+        }
 
         #panelSocial
         {
@@ -142,7 +146,7 @@
             {
                 content: "Slider Area";
             }
-        
+
         #templates {
             display: none;
         }
@@ -162,14 +166,22 @@
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
 
+    <!-- UI Wrapper Components -->
+    <script type="text/javascript" src="js/ui/UIElement.js"></script>
+    <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
+
     <script>
+        var gameEngine;
         function Init() {
-            // TOOD: Init the game engine itself
+            var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
+
+            gameEngine = new GameEngine(null, waveUI);
 
             requestAnimationFrame(GameLoop);
         }
 
         function GameLoop() {
+            gameEngine.processTick();
             requestAnimationFrame(GameLoop);
         }
     </script>
@@ -182,6 +194,10 @@
             <div id="panelPieceHints" class="subPanel">
             </div>
             <div id="panelWaveProgress" class="subPanel">
+                <div id="waveProgressUI">
+                    <div id="progressBar">
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -198,7 +214,7 @@
             <div id="panelSliders" class="subPanel">
             </div>
         </div>
-        
+
         <div id="templates">
             <svg class="square block" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="44" height="44" class="path"/>
