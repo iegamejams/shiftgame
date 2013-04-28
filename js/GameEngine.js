@@ -10,6 +10,8 @@ function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameB
     this.uiPieceHints = uiPieceHints;
     this.winCalled = false;
     this.shapeArray = [];
+    this.clickSounds = ["boop1", "boop2", "boop3"];
+    this.currentClickSound = 0;
     
     // The game board and wave generator will be constructed and assigned during advanceLevel.
     this.gameBoard = null;
@@ -122,6 +124,7 @@ Object.defineProperties(GameEngine.prototype, {
         value: function slideColumn(column) {
             // Protect input while we are paused.
             if (!PopupManager.paused) {
+                SoundManager.play(this.clickSounds[this.currentClickSound++ % this.clickSounds.length]);
                 this.gameBoard.slideRail(column);
             }
         }
