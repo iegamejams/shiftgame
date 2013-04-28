@@ -1,15 +1,15 @@
 "use strict"
 
-function Shape(typeEnum, colorEnum) {
+function Shape(type, color) {
 
     // "Private"
-    this._elm = document.querySelector("#templates " + Shape.types[typeEnum]).cloneNode(true);
+    this._elm = document.querySelector("#templates .shape." + type).cloneNode(true);
 
     // Public
-    this.type = Shape.types[typeEnum];
+    this.type = type;
     this.top = "0px";
     this.left = "-48px";
-    this.colorEnum = colorEnum;
+    this.color = color;
 
     document.body.appendChild(this._elm);
 
@@ -33,15 +33,12 @@ Object.defineProperties(Shape.prototype, {
             this._elm.style.left = value;
         }
     },
-    colorEnum: {
-        get : function () { return this._colorEnum },
-        set : function (value) {
-            this._colorEnum = value;
-            this.color = Shape.colors[value];
-        }
-    },
     color : {
-        get : function() { return this._elm.style.fill }
+        get : function() { return this._elm.style.fill },
+        set : function(value) {
+            var path = this._elm.querySelector(".path");
+            path.style.fill = path.style.stroke = value;
+        }
     }
 });
 
@@ -50,6 +47,6 @@ Object.defineProperties(Shape, {
         value : ["square", "circle", "triangle", "cross", "diamond", "pentagon"]
     },
     colors : {
-        value: ["red", "blue", "green", "yellow", "orange", "purple", "black"]
+        value: ["red", "blue", "green", "yellow", "orange", "purple", "white"]
     }
 });
