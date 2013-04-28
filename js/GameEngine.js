@@ -81,7 +81,7 @@ Object.defineProperties(GameEngine.prototype, {
                         var rail = this.gameBoard.rails[rowNumber];
                         if (!rail.animating) {
                             if (rail.children[slotNumber].children.length > 0) {
-                                if ((Math.abs((rowNumber*64) -this.shapeArray[i].left) < 8) &&
+                                if ((Math.abs((rowNumber*64) - (this.shapeArray[i].left - 256)) < 8) &&
                                     rail.children[slotNumber].children[0].className.baseVal == "shape " + this.shapeArray[i].type) {
                                     var shapeToRemove = this.shapeArray.splice(i, 1)[0];
                                     this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
@@ -147,7 +147,7 @@ Object.defineProperties(GameEngine.prototype, {
             // Spawn a bro
             var newShape = new Shape(Shape.types[shapeIndex], colorIndex);
             newShape.top = (row * 64) + 6;
-            newShape.left = 700;
+            newShape.left = 700 + 256;
             newShape.speed = broSpeed;
             this.shapeArray.push(newShape);
             this.gameBoard._uiElement.appendChild(newShape._uiElement);

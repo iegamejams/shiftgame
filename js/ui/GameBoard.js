@@ -84,8 +84,8 @@ Object.defineProperties(GameBoard.prototype, {
     getRailIndexFromBoardCoords : {
         value : function(point) {
             // update this if the magic numbers change :)
-            if(point.x >= 0 && point.x < 768 && point.y >= 0 && point.y < 448) {
-                return parseInt(point.x / 64);
+            if(point.x >= 256 && point.x < 768 && point.y >= 0 && point.y < 448) {
+                return parseInt(point.x / 64) - 4;
             }
             return null;
         }
@@ -93,7 +93,7 @@ Object.defineProperties(GameBoard.prototype, {
     getSlotIndexFromBoardCoords : {
     value : function(point) {
         // update this if the magic numbers change :)
-        if(point.x >= 0 && point.x < 768 && point.y >= 0 && point.y < 448) {
+        if(point.x >= 256 && point.x < 768 && point.y >= 0 && point.y < 448) {
             return parseInt(point.y / 64);
         }
         return null;
