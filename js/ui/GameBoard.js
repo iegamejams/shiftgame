@@ -1,6 +1,6 @@
 "use strict"
 
-function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent) {
+function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent, pegMaxShape) {
     UIElement.call(this, uiElement);
 
     // Private
@@ -26,6 +26,7 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
     this.gameEngine = gameEngine;
     this.uiHintElement = uiHintElement;
     this.pegSpawnPercent = pegSpawnPercent;
+    this.pegMaxShape = pegMaxShape;
     
     // Build game board UI
     for (var i = 0; i < width; i++) {
@@ -50,7 +51,9 @@ Object.defineProperties(GameBoard.prototype, {
             var slot = document.querySelector("#templates .slot").cloneNode(true);
 
             if (this.pegSpawnPercent > Math.random()) {
-                slot.appendChild(document.querySelector("#templates ." + Shape.types.random()).cloneNode(true));
+                var shapeIndex = Math.floor(Math.random() * this.pegMaxShape);
+
+                slot.appendChild(document.querySelector("#templates ." + Shape.types[shapeIndex]).cloneNode(true));
             }
             return slot;
         }
