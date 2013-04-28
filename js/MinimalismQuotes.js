@@ -39,4 +39,4 @@ QuoteGenerator.prototype.constructor = QuoteGenerator;
             return this.quotes[quoteId];
         }
     }
-});
+}));
