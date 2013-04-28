@@ -161,6 +161,7 @@
         .rail {
             width: 64px;
             float: left;
+            position: relative;
         }
         .slot {
             float: left;
@@ -191,13 +192,14 @@
         //Global Variable
         var _adGenerator = null;
         var gameEngine;
+        var levelData = [{}];
 
         function Init() {
             _adGenerator = new AdGenerator();
-            _gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
-            gameEngine = new GameEngine(null, waveUI);
+            gameEngine = new GameEngine(levelData, waveUI);
+            gameEngine.advanceLevel();
 
             requestAnimationFrame(GameLoop);
         }
@@ -243,27 +245,27 @@
         
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="44" height="44" class="path"/>
+                <rect x="2" y="2" width="44" height="44" class="path"></rect>
             </svg>
 
             <svg class="shape circle" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="22" class="path"/>
+                <circle cx="24" cy="24" r="22" class="path"></circle>
             </svg>
 
             <svg class="shape triangle" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,46 24,2 46,46" class="path"/>
+                <polygon points="2,46 24,2 46,46" class="path"></polygon>
             </svg>
 
             <svg class="shape cross" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"/>
+                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"><polygon>
             </svg>
 
             <svg class="shape diamond" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="8,24 24,2 40,24 24,46" class="path"/>
+                <polygon points="8,24 24,2 40,24 24,46" class="path"><polygon>
             </svg>
 
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"/>
+                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"><polygon>
             </svg>
             
             <div class="rail">
