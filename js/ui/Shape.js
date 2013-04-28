@@ -3,17 +3,15 @@
 function Shape(type, colorEnum) {
     // "Private"
     UIElement.call(this, document.querySelector("#templates ." + type).cloneNode(true));
-    this._colorEnum = colorEnum;
-    this._top = 0;
-    this._left = -48;
+    this._colorEnum;
+    this._top;
+    this._left;
 
     // Public
     this.type = type;
-    this.colorEnum = this._colorEnum;
-    this.left = this._left;
-    this.top = this._top;
-
-    document.body.appendChild(this._uiElement);
+    this.colorEnum = colorEnum;
+    this.left = 0;
+    this.top = 0;
 
     return Object.preventExtensions(this);
 }
@@ -57,6 +55,6 @@ Object.defineProperties(Shape, {
         value : ["square", "circle", "triangle", "cross", "diamond", "pentagon"]
     },
     colors : {
-        value: ["red", "blue", "green", "yellow", "orange", "purple", "black"]
+        value: ["red", "blue", "green", "yellow", "orange", "purple", "white"]
     }
 });

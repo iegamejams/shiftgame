@@ -151,7 +151,6 @@ body {
 }
 .path {
     stroke-width: 4px;
-    fill-opacity: 0.6;
 }
 .rail {
     width: 64px;
