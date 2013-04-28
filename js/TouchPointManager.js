@@ -10,6 +10,8 @@ function TouchPointManager(targetElement) {
     this._points = [];
     this._pointCount = 0;
 
+    this._boundMoveTouchPoint = this.moveTouchPoint.bind(this);
+
     // Determine correct events to register for
     if(navigator.msPointerEnabled) {
         this._downevent = "MSPointerDown";
@@ -36,7 +38,7 @@ Object.defineProperties(TouchPointManager.prototype, {
     addTouchPoint: {
         value: function addTouchPoint(e) {
             if(this._pointCount == 0) {
-                document.addEventListener(this._moveevent, this.moveTouchPoint.bind(this), false);
+                document.addEventListener(this._moveevent, this._boundMoveTouchPoint, false);
             }
 
             var pID = e.pointerId || 0;
@@ -47,7 +49,7 @@ Object.defineProperties(TouchPointManager.prototype, {
             }
 
             if(TOUCH_DEBUG) {
-                console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
+                console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y + " with target: " + e.target.getAttribute("data-column"));
             }
         }
     },
@@ -66,7 +68,7 @@ Object.defineProperties(TouchPointManager.prototype, {
                 this._pointCount--;
                 
                 if(this._pointCount == 0) {
-                    document.removeEventListener(this._moveevent, this.moveTouchPoint, false);
+                    document.removeEventListener(this._moveevent, this._boundMoveTouchPoint, false);
                 }
             }
         }

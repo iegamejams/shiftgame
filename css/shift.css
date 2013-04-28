@@ -1,52 +1,38 @@
 html {
     -ms-touch-action: none;
 }
-
-.screen
-{
+.screen {
     position: absolute;
     left: 0px;
     top: 0px;
     width: 1024px;
     height: 712px;
 }
-
-.panel
-{
+.panel {
     position: absolute;
 }
-
-.subPanel
-{
+.subPanel {
     position: absolute;
 }
-
-#panelTop
-{
+#panelTop {
     left: 0px;
     top: 0px;
     width: 1024px;
     height: 100px;
 }
-
-#panelMid
-{
+#panelMid {
     left: 0px;
     top: 108px;
     width: 1024px;
     height: 448px;
 }
-
-#panelBottom
-{
+#panelBottom {
     left: 0px;
     top: 564px;
     width: 1024px;
     height: 64px;
 }
-
-#panelAd
-{
+#panelAd {
     left: 0px;
     top: 0px;
     width: 248px;
@@ -55,29 +41,22 @@ html {
     border-color:purple;
     text-align:center;
     vertical-align:central;
-
 }
-
-#panelPieceHints
-{
+#panelPieceHints {
     left: 256px;
     width: 512px;
     height: 100px;
     background-color: red;
 }
-
 #panelPieceHints::before {
     content: "Hints";
 }
-
 #panelWaveProgress {
     left: 776px;
     top: 0px;
     width: 248px;
     height: 100px;
 }
-
-
 #waveProgressUI {
 }
 #progressIndicator {
@@ -87,6 +66,7 @@ html {
     position: absolute;
     top: 5px;
     transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
     width: 15px;
 }
 .subWaveBar {
@@ -103,32 +83,24 @@ html {
     height: 35px;
     width: 100%;
 }
-
-#panelBlackSquare
-{
+#panelBlackSquare {
     left: 0px;
     top: 0px;
     width: 198px;
     height: 448px;
     background-color: orange;
 }
-
-    #panelBlackSquare::before
-    {
-        content: "Malevich says, don't be a bitch";
-    }
-
-#panelLawnmowers
-{
+#panelBlackSquare::before {
+    content: "Malevich says, don't be a bitch";
+}
+#panelLawnmowers {
     left: 198px;
     top: 0px;
     width: 50px;
     height: 448px;
-    background-color: #DDD;
+    background-color: #ddd;
 }
-
-#panelGameBoard
-{
+#panelGameBoard {
     top: 0px;
     left: 256px;
     width: 768px;
@@ -136,7 +108,6 @@ html {
     background-color: yellow;
     overflow: hidden;
 }
-
 #panelSocial {
     padding: 20px;
     left: 0px;
@@ -147,7 +118,6 @@ html {
     text-align: center;
     background-color: blue;
 }
-
 #panelSliders {
     left: 256px;
     top: 0px;
@@ -156,22 +126,18 @@ html {
     padding: 0px;
     margin: 0px;
 }
-
 .sliderButtons {
-    display: inline-block;
-    margin-top: 8px;
-    margin-left: 10px;
+    float: left;
+    margin: 6px;
     padding: 8px;
-    width: 48px;
-    height: 48px;
-    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
     border:2px solid green;
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
     text-align: center;
     cursor: pointer;
 }
-
 #templates {
     display: none;
 }
@@ -200,7 +166,7 @@ html {
 }
 .slot .shape .path {
     stroke-width: 2px;
-    fill-opacity: 0;
+    fill-opacity: 1;
 }
 #blackSquare {
     background-color: black;
@@ -211,5 +177,8 @@ html {
     width: 100px;
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-
+}
+#blackSquareMask {
+    height: 100px;
+    width: 100px;
 }

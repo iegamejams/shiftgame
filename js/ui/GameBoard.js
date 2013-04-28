@@ -22,6 +22,7 @@ function GameBoard(container, width, height) {
     // Build game board UI
     for (var i = 0; i < width; i++) {
         var rail = templates.rail.cloneNode(false);
+        rail.setAttribute("index", i);
         this.rails.push(rail);
         for (var j = 0; j < height; j++) {
             rail.appendChild(this.createSlot());

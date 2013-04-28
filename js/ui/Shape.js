@@ -1,20 +1,21 @@
 "use strict"
 
 function Shape(type, color) {
-    
+
     // "Private"
     this._elm = document.querySelector("#templates .shape." + type).cloneNode(true);
-    
+
     // Public
     this.type = type;
     this.top = "0px";
     this.left = "-48px";
     this.color = color;
-    
+
     document.body.appendChild(this._elm);
-    
+
     return Object.preventExtensions(this);
 }
+
 
 Shape.prototype = Object.create(null);
 Shape.prototype.constructor = Shape;
@@ -44,5 +45,8 @@ Object.defineProperties(Shape.prototype, {
 Object.defineProperties(Shape, {
     types : {
         value : ["square", "circle", "triangle", "cross", "diamond", "pentagon"]
+    },
+    colors : {
+        value: ["red", "blue", "green", "yellow", "orange", "purple", "white"]
     }
 });
