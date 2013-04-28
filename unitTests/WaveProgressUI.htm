@@ -8,31 +8,47 @@
         <script>
 
             var levelData = {
-                totalTicks: 1000,
-                subWaves: [0.33, 0.66]
+                totalTicks: 100,
+                subWaves: [0.10, 0.33, 0.66]
             };
-            var testWaveGenerator = new WaveGenerator(levelData);
-        var testWaveUI;
-        function Init() {
-            testWaveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
-            testWaveUI.initUI(testWaveGenerator);
-        }
 
-        function moveProgress() {
-            window.setInterval("testWaveUI.updateUI(testWaveGenerator)", 500);
-        }
+            var testWaveGenerator = new WaveGenerator(levelData);
+            var testWaveUI;
+            function Init() {
+                testWaveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
+                testWaveUI.initUI(testWaveGenerator);
+            }
+
+            function moveProgress() {
+                window.setInterval("testWaveGenerator.processTick()", 100);
+                window.setInterval("testWaveUI.updateUI(testWaveGenerator)", 100);
+            }
         </script>
         <style>
-            #progressBar {
-                background: blue;
-                width: 20%;
+            html, body {
+                width: 100%;
+            }
+            #progressIndicator {
+                border: 5px solid green;
+                height: 15px;
+                position: absolute;
+                top: 5px;
+                transform: rotate(45deg);
+                width: 15px;
             }
             .subWaveBar {
-                width: 5px;
-                height: 5px;
                 border: 5px yellow solid;
                 border-radius: 15px;
+                height: 5px;
+                position: absolute;
+                top: 10px;
+                width: 5px;
+            }
+            #progressBar {
+                background: blue;
+                height: 35px;
                 position: relative;
+                width: 20%;
             }
         </style>
     </head>
