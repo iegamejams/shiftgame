@@ -162,6 +162,17 @@
             fill: #00f;
             fill-opacity: 0.6;
         }
+        #blackSquare {
+            background-color: black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            height: 100px;
+            width: 100px;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+
+        }
     </style>
 
     <script type="text/javascript" src="js/GameEngine.js"></script>
@@ -184,6 +195,8 @@
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
+
+            window.blackSquare = new HealthBlock("blackSquare");
 
             requestAnimationFrame(GameLoop);
         }
@@ -215,6 +228,7 @@
 
         <div id="panelMid" class="panel">
             <div id="panelBlackSquare" class="subPanel">
+                <div id="blackSquare"></div>
             </div>
             <div id="panelGameBoard" class="subPanel">
             </div>
