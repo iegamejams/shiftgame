@@ -49,7 +49,7 @@ Object.defineProperties(GameEngine.prototype, {
     restartLevel: {
         value: function restartLevel() {
             this.levelInProgress = true;
-            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent, this.levelData[this.level].shapes);
+            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent, this.levelData[this.level].shapes, this.levelData[this.level].colors);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level], this);
             this.waveProgress.initUI(this.waveGenerator);
             
@@ -95,6 +95,17 @@ Object.defineProperties(GameEngine.prototype, {
                     point.y = this.shapeArray[i].top;
                     var rowNumber = this.gameBoard.getRailIndexFromBoardCoords(point);
                     var slotNumber = this.gameBoard.getSlotIndexFromBoardCoords(point);
+                    if (rowNumber === -1) { // Blocker row
+                        var blocker = this.gameBoard.blockers[slotNumber];
+                        if (blocker.active) {
+                            var shapeToRemove = this.shapeArray.splice(i, 1)[0];
+                            this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
+                            if (shapeToRemove.colorEnum !== blocker.colorEnum) {
+                                blocker.active = false;
+                            }
+                        }
+                        continue;
+                    }
                     if (rowNumber != null && slotNumber != null && rowNumber < 8) {
                         var rail = this.gameBoard.rails[rowNumber];
                         if (!rail.animating) {

@@ -96,12 +96,17 @@ body {
     width: 198px;
     height: 448px;
 }
-#panelLawnmowers {
-    left: 198px;
+#panelBlockers {
+    left: 218px;
     top: 0px;
-    width: 50px;
+    width: 30px;
     height: 448px;
     background-color: #ddd;
+}
+#panelBlockers .blocker {
+    width: 30px;
+    height: 56px;
+    border: 4px solid white;
 }
 #panelGameBoard {
     top: 0px;
