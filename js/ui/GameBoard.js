@@ -48,7 +48,10 @@ Object.defineProperties(GameBoard.prototype, {
     createSlot : {
         value : function() {
             var slot = document.querySelector("#templates .slot").cloneNode(true);
-            slot.appendChild(document.querySelector("#templates ." + Shape.types.random()).cloneNode(true));
+
+            if (this.pegSpawnPercent < Math.random()) {
+                slot.appendChild(document.querySelector("#templates ." + Shape.types.random()).cloneNode(true));
+            }
             return slot;
         }
     },
