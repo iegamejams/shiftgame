@@ -54,12 +54,9 @@
             height: 100px;
             background-color: white;
             border-color:purple;
+            text-align:center;
+            vertical-align:central;
         }
-
-            #panelAd::before
-            {
-                content: "Ad Space";
-            }
 
         #panelPieceHints
         {
@@ -97,7 +94,7 @@
         {
             left: 0px;
             top: 0px;
-            width: 248px;
+            width: 198px;
             height: 448px;
             background-color: orange;
         }
@@ -106,6 +103,15 @@
             {
                 content: "Malevich says, don't be a bitch";
             }
+
+        #panelLawnmowers
+        {
+            left: 198px;
+            top: 0px;
+            width: 50px;
+            height: 448px;
+            background-color: #DDD;
+        }
 
         #panelGameBoard
         {
@@ -130,24 +136,30 @@
             background-color: blue;
         }
 
-            #panelSocial::before
-            {
-                content: "Social Networking";
-            }
-
-        #panelSliders
-        {
+        #panelSliders {
             left: 256px;
             top: 0px;
             width: 512px;
             height: 64px;
-            background-color: darkgreen;
+            padding: 0px;
+            margin: 0px;
         }
 
-            #panelSliders::before
-            {
-                content: "Slider Area";
-            }
+        .sliderButtons {
+            display: inline-block;
+            margin-top: 8px;
+            margin-left: 10px;
+            padding: 8px;
+            width: 48px;
+            height: 48px;
+            box-sizing: border-box;
+            border:2px solid green;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
         #templates {
             display: none;
         }
@@ -178,23 +190,27 @@
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
-    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
 
     <!-- UI Wrapper Components -->
+    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
     <script type="text/javascript" src="js/ui/UIElement.js"></script>
     <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
     <script type="text/javascript" src="js/ui/Shape.js"></script>
+    <script type="text/javascript" src="js/ui/SliderUI.js"></script>
 
     <script>
         //Global Variable
         var _adGenerator = null;
         var gameEngine;
+        var sliderUI;
 
         function Init() {
             _adGenerator = new AdGenerator();
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
+            sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
+            sliderUI.initUI();
 
             window.blackSquare = new HealthBlock("blackSquare");
 
@@ -230,6 +246,8 @@
             <div id="panelBlackSquare" class="subPanel">
                 <div id="blackSquare"></div>
             </div>
+            <div id="panelLawnmowers" class="subPanel">
+            </div>
             <div id="panelGameBoard" class="subPanel">
             </div>
         </div>
@@ -238,9 +256,19 @@
             <div id="panelSocial" class="subPanel">
             </div>
             <div id="panelSliders" class="subPanel">
+                <div id="sliderUI">
+                    <div class="sliderButtons" data-column="1" data-key="a">a</div>
+                    <div class="sliderButtons" data-column="2" data-key="s">s</div>
+                    <div class="sliderButtons" data-column="3" data-key="d">d</div>
+                    <div class="sliderButtons" data-column="4" data-key="f">f</div>
+                    <div class="sliderButtons" data-column="5" data-key="j">j</div>
+                    <div class="sliderButtons" data-column="6" data-key="k">k</div>
+                    <div class="sliderButtons" data-column="7" data-key="l">l</div>
+                    <div class="sliderButtons" data-column="8" data-key=";">;</div>
+                </div>
             </div>
         </div>
-        
+
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="44" height="44" class="path"/>

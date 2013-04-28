@@ -18,6 +18,8 @@ GameEngine.prototype = Object.create(null);
 GameEngine.prototype.constructor = GameEngine;
 
 Object.defineProperties(GameEngine.prototype, {
+
+    // Level management functions
     advanceLevel: {
         value: function advanceLevel() {
             this.level++;
@@ -55,6 +57,14 @@ Object.defineProperties(GameEngine.prototype, {
         }
     },
     
+    // Gameplay management functions
+    slideColumn: {
+        value: function slideColumn(column) {
+            alert('Sliding Column: ' + column);
+        }
+    },
+    
+    // Event dispatch for the game engine
     addEventListener: {
         value: function addEventListener(eventName, callback) {
             if (!this.eventHandlers[eventName]) {

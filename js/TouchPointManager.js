@@ -40,7 +40,8 @@ Object.defineProperties(TouchPointManager.prototype, {
             var pID = e._pointerId || 0;
             if(!this._points[pID]) {
                 this._pointCount++;
-                this._points[pID] = {x : e.clientX, y : e.clientY};
+                this._points[pID] = new TouchPoint(e.clientX, e.clientY);
+                this._points[pID].down(e.clientX, e.clientY);
             }
         }
     },
@@ -49,6 +50,8 @@ Object.defineProperties(TouchPointManager.prototype, {
         value: function removeTouchPoint(e) {
             var pID = e._pointerId || 0;
             if(this._points[pID]) {
+                this._points[pID].up(e.clientX, e.clientY);
+
                 delete this._points[pID];
                 this._pointCount--;
                 
@@ -63,8 +66,7 @@ Object.defineProperties(TouchPointManager.prototype, {
         value: function moveTouchPoint(e) {
             var pID = e._pointerId || 0;
             if(this._points[pID]) {
-                this._points[pID].x = e.clientX;
-                this._points[pID].y = e.clientY;
+                this._points[pID].move(e.clientX, e.clientY);
             }
         }
     },
@@ -75,7 +77,7 @@ Object.defineProperties(TouchPointManager.prototype, {
     doAsEachPoint: {
         value: function doAsEachPoint(funcHandle, args) {
             this._points.forEach(function(point) {
-                funcHandle.bind(point, args)();
+                funcHandle.bind(point.getCoordinates(), args)();
             });
         }
     }
