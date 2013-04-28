@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+
+        <style>
+        .sliderButtons {
+            display: inline-block;
+            margin: 8px;
+            padding: 8px;
+            width: 48px;
+            height: 48px;
+            box-sizing: border-box;
+            border:2px solid green;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+        </style>
+
+        <script src="../js/ui/UIElement.js"></script>
+        <script src="../js/ui/SliderUI.js"></script>
+        <script>
+        var testSliderUI;
+
+        var mockGameEngine = {};
+        mockGameEngine.slideColumn = function slideColumn(target) {
+            alert("Shifting: " + target);
+        }
+
+        function Init() {
+            testSliderUI = new SliderUI(document.getElementById("sliderUI"), mockGameEngine);
+            testSliderUI.initUI();
+        }
+        </script>
+    </head>
+    <body onload="Init();">
+        <div id="sliderUI">
+            <div class="sliderButtons" data-column="1" data-key="a">a</div>
+            <div class="sliderButtons" data-column="2" data-key="s">s</div>
+            <div class="sliderButtons" data-column="3" data-key="d">d</div>
+            <div class="sliderButtons" data-column="4" data-key="f">f</div>
+            <div class="sliderButtons" data-column="5" data-key="j">j</div>
+            <div class="sliderButtons" data-column="6" data-key="k">k</div>
+            <div class="sliderButtons" data-column="7" data-key="l">l</div>
+            <div class="sliderButtons" data-column="8" data-key=";">;</div>
+        </div>
+    </body>
+</html>
