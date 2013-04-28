@@ -4,9 +4,11 @@ function GameEngine(levelData, waveProgressUIWrapper) {
     // Pre-define all properties because once we preventExtensions on the object we can't add anymore.
     this.level = -1;
     this.levelData = levelData;
+    this.levelInProgress = false;
     
-    // The wave generator will be constructed and assigned during advanceLevel.
-    this.waveGenerator;
+    // The game board and wave generator will be constructed and assigned during advanceLevel.
+    this.gameBoard = null;
+    this.waveGenerator = null;
     this.waveProgress = waveProgressUIWrapper;
     
     this.eventHandlers = {};
@@ -37,8 +39,9 @@ Object.defineProperties(GameEngine.prototype, {
     restartLevel: {
         value: function restartLevel() {
             this.levelInProgress = true;
+            this.gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
-            this.waveProgressUIWrapper.initUI(this.waveGenerator);
+            //this.waveProgressUIWrapper.initUI(this.waveGenerator);
         }
     },
 
@@ -46,6 +49,7 @@ Object.defineProperties(GameEngine.prototype, {
         value: function processTick() {
             if (this.levelInProgress) {
                 // Tick all of our dependent objects
+                this.gameBoard.processTick();
                 this.waveGenerator.processTick();
                 
                 // Update all of our UI states
@@ -62,7 +66,7 @@ Object.defineProperties(GameEngine.prototype, {
     // Gameplay management functions
     slideColumn: {
         value: function slideColumn(column) {
-            alert('Sliding Column: ' + column);
+            this.gameBoard.slideRail(column);
         }
     },
     

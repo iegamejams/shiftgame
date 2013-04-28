@@ -2,207 +2,21 @@
 <html>
 <head>
     <title>Shift: Simple, Colorful, Fun</title>
-    <style>
-        html {
-            -ms-touch-action: none;
-        }
-        
-        .screen
-        {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            width: 1024px;
-            height: 712px;
-        }
 
-        .panel
-        {
-            position: absolute;
-        }
+    <link rel="stylesheet" type="text/css" href="css/shift.css" />
 
-        .subPanel
-        {
-            position: absolute;
-        }
-
-        #panelTop
-        {
-            left: 0px;
-            top: 0px;
-            width: 1024px;
-            height: 100px;
-        }
-
-        #panelMid
-        {
-            left: 0px;
-            top: 108px;
-            width: 1024px;
-            height: 448px;
-        }
-
-        #panelBottom
-        {
-            left: 0px;
-            top: 564px;
-            width: 1024px;
-            height: 64px;
-        }
-
-        #panelAd
-        {
-            left: 0px;
-            top: 0px;
-            width: 248px;
-            height: 100px;
-            background-color: white;
-            border-color:purple;
-        }
-
-            #panelAd::before
-            {
-                content: "Ad Space";
-            }
-
-        #panelPieceHints
-        {
-            left: 256px;
-            width: 512px;
-            height: 100px;
-            background-color: red;
-        }
-
-        #panelPieceHints::before {
-            content: "Hints";
-        }
-
-        #panelWaveProgress {
-            left: 776px;
-            top: 0px;
-            width: 248px;
-            height: 100px;
-        }
-
-        #waveProgressUI {
-        }
-        #progressBar {
-            margin: 35px;
-            margin-left: 30px;
-            margin-right: 30px;
-            height: 30px;
-            background-color: blue;
-        }
-        #progressIndicator {
-            display: none;
-        }
-
-        #panelBlackSquare
-        {
-            left: 0px;
-            top: 0px;
-            width: 198px;
-            height: 448px;
-            background-color: orange;
-        }
-
-            #panelBlackSquare::before
-            {
-                content: "Malevich says, don't be a bitch";
-            }
-
-        #panelLawnmowers
-        {
-            left: 198px;
-            top: 0px;
-            width: 50px;
-            height: 448px;
-            background-color: #DDD;
-        }
-
-        #panelGameBoard
-        {
-            top: 0px;
-            left: 256px;
-            width: 768px;
-            height: 448px;
-            background-color: yellow;
-        }
-
-            #panelGameBoard::before
-            {
-                content: "Game Board";
-            }
-
-        #panelSocial
-        {
-            left: 0px;
-            top: 0px;
-            width: 248px;
-            height: 64px;
-            background-color: blue;
-        }
-
-            #panelSocial::before
-            {
-                content: "Social Networking";
-            }
-
-        #panelSliders
-        {
-            left: 256px;
-            top: 0px;
-            width: 512px;
-            height: 64px;
-            background-color: darkgreen;
-        }
-
-            #panelSliders::before
-            {
-                content: "Slider Area";
-            }
-        #templates {
-            display: none;
-        }
-        .shape {
-            width: 48px;
-            height: 48px;
-            position: absolute;
-        }
-        .path {
-            stroke: #00f;
-            stroke-width: 4px;
-            fill: #00f;
-            fill-opacity: 0.6;
-        }
-        #blackSquare {
-            background-color: black;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 50px;
-            height: 100px;
-            width: 100px;
-            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-
-        }
-
-        #blackSquareMask {
-            height: 100px;
-            width: 100px;
-
-        }
-    </style>
-
+    <script type="text/javascript" src="js/Util.js"></script>
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
-    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
 
     <!-- UI Wrapper Components -->
+    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
     <script type="text/javascript" src="js/ui/UIElement.js"></script>
     <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
     <script type="text/javascript" src="js/ui/Shape.js"></script>
+    <script type="text/javascript" src="js/ui/SliderUI.js"></script>
+    <script type="text/javascript" src="js/ui/GameBoard.js"></script>
 
     <!-- Touch handling components -->
     <script type="text/javascript" src="js/TouchPoint.js"></script>
@@ -213,16 +27,23 @@
         var _adGenerator = null;
         var gameEngine;
         var sliderUI;
+        var levelData = [{
+            // TODO: level data
+        }];
 
         function Init() {
             _adGenerator = new AdGenerator();
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
-            gameEngine = new GameEngine(null, waveUI);
+            gameEngine = new GameEngine(levelData, waveUI);
+
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
 
             window.blackSquare = new HealthBlock("blackSquare");
+            
+            // Start first level
+            gameEngine.advanceLevel();
 
             requestAnimationFrame(GameLoop);
         }
@@ -254,9 +75,7 @@
 
         <div id="panelMid" class="panel">
             <div id="panelBlackSquare" class="subPanel">
-                <div id="blackSquare">
-                    <div id="blackSquareMask"></div>
-                </div>
+                <div id="blackSquare"></div>
             </div>
             <div id="panelLawnmowers" class="subPanel">
             </div>
@@ -266,46 +85,63 @@
 
         <div id="panelBottom" class="panel">
             <div id="panelSocial" class="subPanel">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://shift.azurewebsites.net" data-text="I just played ShiftTheGame." data-via="JustRogDigiTec" data-hashtags="ShiftTheGame" data-dnt="true">Tweet</a>
             </div>
             <div id="panelSliders" class="subPanel">
-               <div id="sliderUI">
-                    <div class="sliderButtons" data-column="1" data-key="a">a</div>
-                    <div class="sliderButtons" data-column="2" data-key="s">s</div>
-                    <div class="sliderButtons" data-column="3" data-key="d">d</div>
-                    <div class="sliderButtons" data-column="4" data-key="f">f</div>
-                    <div class="sliderButtons" data-column="5" data-key="j">j</div>
-                    <div class="sliderButtons" data-column="6" data-key="k">k</div>
-                    <div class="sliderButtons" data-column="7" data-key="l">l</div>
-                    <div class="sliderButtons" data-column="8" data-key=";">;</div>
+                <div id="sliderUI">
+                    <div class="sliderButtons" data-column="0" data-key="a">a</div>
+                    <div class="sliderButtons" data-column="1" data-key="s">s</div>
+                    <div class="sliderButtons" data-column="2" data-key="d">d</div>
+                    <div class="sliderButtons" data-column="3" data-key="f">f</div>
+                    <div class="sliderButtons" data-column="4" data-key="j">j</div>
+                    <div class="sliderButtons" data-column="5" data-key="k">k</div>
+                    <div class="sliderButtons" data-column="6" data-key="l">l</div>
+                    <div class="sliderButtons" data-column="7" data-key=";">;</div>
                 </div>
             </div>
         </div>
-        
+
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="44" height="44" class="path"/>
+                <rect x="2" y="2" width="44" height="44" class="path"></rect>
             </svg>
 
             <svg class="shape circle" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="22" class="path"/>
+                <circle cx="24" cy="24" r="22" class="path"></circle>
             </svg>
 
             <svg class="shape triangle" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,46 24,2 46,46" class="path"/>
+                <polygon points="2,46 24,2 46,46" class="path"></polygon>
             </svg>
 
             <svg class="shape cross" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"/>
+                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"><polygon>
             </svg>
 
             <svg class="shape diamond" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="8,24 24,2 40,24 24,46" class="path"/>
+                <polygon points="8,24 24,2 40,24 24,46" class="path"><polygon>
             </svg>
 
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"/>
+                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"><polygon>
             </svg>
+            
+            <div class="rail">
+                <div class="slot"></div>
+            </div>
         </div>
     </div>
+
+    <!-- Twitter -->
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "http://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        } (document, "script", "twitter-wjs");</script>
 </body>
 </html>

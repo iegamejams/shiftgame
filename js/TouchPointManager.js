@@ -44,9 +44,10 @@ Object.defineProperties(TouchPointManager.prototype, {
                 this._pointCount++;
                 this._points[pID] = new TouchPoint(e.clientX, e.clientY);
                 this._points[pID].down(e.clientX, e.clientY);
-                if(TOUCH_DEBUG) {
-                    console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
-                }
+            }
+
+            if(TOUCH_DEBUG) {
+                console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
             }
         }
     },
