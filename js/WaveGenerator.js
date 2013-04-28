@@ -18,12 +18,12 @@ Object.defineProperties(WaveGenerator.prototype, {
     },
     progress: {
         get: function get_progress() {
-            return this.currentTick / this.curentLevel.totalTicks;
+            return this.currentTick / this.currentLevel.totalTicks;
         }
     },
     subWaves: {
         get: function get_subWaves() {
-            return [0.33, 0.66];
+            return this.currentLevel.subWaves;
         }
-    },
+    }
 });

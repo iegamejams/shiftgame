@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wave Generator Unit Tests</title>
+        <script src="../js/WaveGenerator.js"></script>
+        <script>
+        function Init() {
+            var levelData = {
+                totalTicks: 1000,
+                subWaves: [0.33, 0.66]
+            };
+
+            function appendLog (text) {
+                var results = document.getElementById("results");
+                results.innerHTML = results.innerHTML + " " + text + "<br/>";
+            };
+
+            function appendResult (passed) {
+                appendLog(passed ? "SUCCESS" : "TERRIBLE, TRY AGAIN");
+            };
+
+            var waveGenerator = new WaveGenerator(levelData);
+            
+            appendLog("Results:");
+            appendLog("WaveGenerator::subWaves");
+            appendResult(waveGenerator.subWaves[0] == 0.33);
+            appendResult(waveGenerator.subWaves[1] == 0.66);
+
+            appendLog("");
+            appendLog("WaveGenerator::progress");
+            appendResult(waveGenerator.progress == 0);
+
+            appendLog("");
+            appendLog("And...");
+            appendLog("I'm spent.");
+        }
+        </script>
+    </head>
+    <body onload="Init();">
+        <div id="results"></div>
+    </body>
+</html>
