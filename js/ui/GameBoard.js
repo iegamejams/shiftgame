@@ -1,6 +1,6 @@
 "use strict"
 
-function GameBoard(uiElement, uiHintElement, gameEngine, width, height) {
+function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent) {
     UIElement.call(this, uiElement);
 
     // Private
@@ -25,6 +25,7 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height) {
     this.rails = [];
     this.gameEngine = gameEngine;
     this.uiHintElement = uiHintElement;
+    this.pegSpawnPercent = pegSpawnPercent;
     
     // Build game board UI
     for (var i = 0; i < width; i++) {
