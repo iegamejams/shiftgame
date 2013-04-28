@@ -61,7 +61,7 @@ Object.defineProperties(WaveGenerator.prototype, {
             var shapeIndex = this.random(this.currentLevel.shapes);
             var colorIndex = this.random(this.currentLevel.colors);
             
-            this.gameEngine.spawnBro(row, shapeIndex, colorIndex);
+            this.gameEngine.spawnBro(row, shapeIndex, colorIndex, this.currentLevel.broSpeed);
         }
     },
     random: {
