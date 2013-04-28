@@ -8,6 +8,7 @@ function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameB
     this.eventHandlers = {};
     this.uiGameBoard = uiGameBoard;
     this.uiPieceHints = uiPieceHints;
+    this.shapeArray = [];
     
     // The game board and wave generator will be constructed and assigned during advanceLevel.
     this.gameBoard = null;
@@ -59,6 +60,11 @@ Object.defineProperties(GameEngine.prototype, {
                 
                 // Update all of our UI states
                 this.waveProgress.updateUI(this.waveGenerator);
+
+                //For Each Shapt Object in our collection, process Tick
+                for (var i = 0; i < this.shapeArray.length; i++) {
+                    this.shapeArray[i].processTick();
+                }
                 
                 // Determine that we need another requestAnimationFrame();
                 return true;
@@ -110,8 +116,9 @@ Object.defineProperties(GameEngine.prototype, {
         value: function spawnBro(row, shapeIndex, colorIndex) {
             // Spawn a bro
             var newShape = new Shape(Shape.types[shapeIndex], colorIndex);
-            newShape.top = (row * 64) + 8;
+            newShape.top = (row * 63) + 8;
             newShape.left = 700;
+            this.shapeArray.push(newShape);
             this.gameBoard._uiElement.appendChild(newShape._uiElement);
         }
     }

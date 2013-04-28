@@ -21,6 +21,11 @@ Shape.prototype = Object.create(UIElement.prototype);
 Shape.prototype.constructor = Shape;
 
 Object.defineProperties(Shape.prototype, {
+    processTick: {
+        value: function processTick() {
+            this.left--;
+        }
+    },
     top: {
         get: function get_top() {
             return this._top;
