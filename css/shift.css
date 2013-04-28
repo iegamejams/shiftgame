@@ -108,10 +108,10 @@ body {
 }
 #panelGameBoard {
     top: 0px;
-    left: 256px;
     width: 768px;
     height: 448px;
     overflow: hidden;
+    padding-left: 256px;
 }
 #panelSocial {
     padding: 20px;
