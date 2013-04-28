@@ -7,6 +7,8 @@
         function Init() {
             var levelData = {
                 totalTicks: 10,
+                maxShapeIndex: 1,
+                maxColorIndex: 2,
                 subWaves: [0.33, 0.66]
             };
 
@@ -21,11 +23,7 @@
 
             var gameEngineMock = {
                 spawnBro: function(row, shapeIndex, colorIndex){
-                    appendLog("gameEngine spawnBro executed");
-                    appendResult(true);
-                    appendResult(row === 2);
-                    appendResult(shapeIndex == 3);
-                    appendResult(colorIndex == 4);
+                    appendResult(true, "gameEngine spawnBro executed");
                 }
             }
 
