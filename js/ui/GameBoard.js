@@ -1,7 +1,8 @@
 "use strict"
 
-function GameBoard(container, width, height) {
-    
+function GameBoard(uiElement, uiHintElement, gameEngine, width, height) {
+    UIElement.call(this, uiElement);
+
     // Private
     var templates = {
         rail : document.querySelector("#templates .rail"),
@@ -10,14 +11,20 @@ function GameBoard(container, width, height) {
     
     // Public
     Object.defineProperties(this, {
-        width : {
-            get : function() { return width }
+        width: {
+            get: function get_width() {
+                return width
+            }
         },
-        height : {
-            get : function() { return height }
+        height: {
+            get: function get_height() {
+                return height
+            }
         }
     });
     this.rails = [];
+    this.gameEngine = gameEngine;
+    this.uiHintElement = uiHintElement;
     
     // Build game board UI
     for (var i = 0; i < width; i++) {
@@ -27,13 +34,13 @@ function GameBoard(container, width, height) {
         for (var j = 0; j < height; j++) {
             rail.appendChild(this.createSlot());
         }
-        container.appendChild(rail);
+        this._uiElement.appendChild(rail);
     }
     
     return Object.preventExtensions(this);
 }
 
-GameBoard.prototype = Object.create(null);
+GameBoard.prototype = Object.create(UIElement.prototype);
 GameBoard.prototype.constructor = GameBoard;
 
 Object.defineProperties(GameBoard.prototype, {
@@ -47,7 +54,9 @@ Object.defineProperties(GameBoard.prototype, {
     slideRail : {
         value : function(railNumber) {
             var rail = this.rails[railNumber];
-            if (rail.animating) return false; // Can't slide the rail if it's currently completing the previous slide
+            if (rail.animating) {
+                return false; // Can't slide the rail if it's currently completing the previous slide
+            }
             rail.animating = true;
             rail.insertBefore(this.createSlot(), rail.firstChild);
             rail.style.top = "-64px";

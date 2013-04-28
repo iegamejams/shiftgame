@@ -1,20 +1,25 @@
 "use strict";
 
-function GameEngine(levelData, waveProgressUIWrapper) {
+function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameBoard, uiPieceHints) {
     // Pre-define all properties because once we preventExtensions on the object we can't add anymore.
     this.level = -1;
     this.levelData = levelData;
     this.levelInProgress = false;
+    this.eventHandlers = {};
+    this.uiGameBoard = uiGameBoard;
+    this.uiPieceHints = uiPieceHints;
     
     // The game board and wave generator will be constructed and assigned during advanceLevel.
     this.gameBoard = null;
     this.waveGenerator = null;
-    this.waveProgress = waveProgressUIWrapper;
-    
-    this.eventHandlers = {};
-
+    this.waveProgress = new WaveProgressUI(uiWaveProgress);
+    this.sliderUI = new SliderUI(uiSliders, this);
+    this.healthBlock = new HealthBlock(uiBlackSquare);
     this.touchPointManager = new TouchPointManager(document);
     
+    // Initialize any UI elements that need one time initialization.
+    this.sliderUI.initUI();
+
     return Object.preventExtensions(this);
 }
 
@@ -39,8 +44,8 @@ Object.defineProperties(GameEngine.prototype, {
     restartLevel: {
         value: function restartLevel() {
             this.levelInProgress = true;
-            this.gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
-            this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
+            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7);
+            this.waveGenerator = new WaveGenerator(this.levelData[this.level], this);
             this.waveProgress.initUI(this.waveGenerator);
         }
     },
@@ -104,9 +109,10 @@ Object.defineProperties(GameEngine.prototype, {
     spawnBro: {
         value: function spawnBro(row, shapeIndex, colorIndex) {
             // Spawn a bro
-            var newShape = new Shape(Shape.types.random(), colorIndex);
-            newShape.top = (row * 64) + 8 + 108;
-            newShape.left = 968;
+            var newShape = new Shape(Shape.types[shapeIndex], colorIndex);
+            newShape.top = (row * 64) + 8;
+            newShape.left = 700;
+            this.gameBoard._uiElement.appendChild(newShape._uiElement);
         }
     }
 });

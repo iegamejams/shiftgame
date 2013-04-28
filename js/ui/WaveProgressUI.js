@@ -25,7 +25,7 @@ Object.defineProperties(WaveProgressUI.prototype, {
                 var subWaveElement = document.createElement("div");
                 
                 subWaveElement.className = "subWaveBar";
-                subWaveElement.style.left = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * subWave.start)) + "px";
+                subWaveElement.style.left = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * subWave)) + "px";
                 this.subWaveElements.push(subWaveElement);
                 this.uiProgressBar.insertBefore(subWaveElement, this.uiProgressIndicator);
                 this.uiProgressIndicator.style.left = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * waveGenerator.progress)) + "px";

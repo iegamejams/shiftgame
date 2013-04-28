@@ -10,6 +10,8 @@
     <script type="text/javascript" src="js/AdGenerator.js"></script>
     <script type="text/javascript" src="js/SoundManager.js"></script>
     <script type="text/javascript" src="js/MinimalismQuotes.js"></script>
+    <script type="text/javascript" src="js/Level.js"></script>
+    <script type="text/javascript" src="js/SubWave.js"></script>
 
     <!-- UI Wrapper Components -->
     <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
@@ -28,19 +30,29 @@
         var _adGenerator = null;
         var gameEngine;
         var sliderUI;
-        var levelData = [{
-            totalTicks: 60 * 120,
-            subWaves: [0.33, 0.66]
-        }];
+        var levelData = [
+            new Level(300, 3600, 2, 3, 7, [new SubWave(1800, 600, 0.8)]),
+            new Level(300, 3600, 2, 3, 7, [new SubWave(1200, 600, 0.8), new SubWave(2400, 600, 0.8)]),
+            new Level(280, 4800, 2, 3, 7, [new SubWave(1800, 1000, 0.8), new SubWave(3200, 1000, 0.8)]),
+            new Level(280, 4800, 2, 3, 7, [new SubWave(1800, 1000, 0.8), new SubWave(3200, 1000, 0.8)]),
+            new Level(250, 5600, 2, 3, 7, [new SubWave(1800, 1000, 0.7), new SubWave(3200, 1000, 0.7)]),
+
+            new Level(280, 3600, 3, 3, 7, [new SubWave(1800, 600, 0.8)]),
+            new Level(280, 3600, 3, 3, 7, [new SubWave(1800, 600, 0.8)]),
+            new Level(250, 3600, 3, 4, 7, [new SubWave(1800, 600, 0.8)]),
+            new Level(230, 3600, 3, 4, 7, [new SubWave(1800, 600, 0.8)]),
+            new Level(230, 3600, 3, 4, 7, [new SubWave(1800, 600, 0.8)]),
+        ];
 
         function Init() {
             _adGenerator = new AdGenerator();
 
-            var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
-            gameEngine = new GameEngine(levelData, waveUI);
-
-            sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
-            sliderUI.initUI();
+            gameEngine = new GameEngine(levelData,
+                document.getElementById("blackSquare"),
+                document.getElementById("waveProgressUI"),
+                document.getElementById("sliderUI"),
+                document.getElementById("panelGameBoard"),
+                document.getElementById("panelPieceHints"));
 
             window.blackSquare = new HealthBlock("blackSquare");
 

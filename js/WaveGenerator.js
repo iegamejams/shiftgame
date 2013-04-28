@@ -1,6 +1,6 @@
 "use strict";
 
-function WaveGenerator(levelData, waveProgressUIWrapper, gameEngine) {
+function WaveGenerator(levelData, gameEngine) {
     this.currentLevel = levelData;
     this.currentTick = 0;
     this.gameEngine = gameEngine;
@@ -16,7 +16,26 @@ Object.defineProperties(WaveGenerator.prototype, {
         // Frame based tick advancement, no time delta
         value: function processTick() {
             this.currentTick++;
-            if(this.currentTick % this.currentBrodensity === 0) {
+            
+            var frequency = this.currentLevel.frequency;
+            if (this.currentLevel.subWaves) {
+                var currentSubWave;
+                this.currentLevel.subWaves.some(function (subWave) {
+                    if (this.currentTick >= subWave.startTick && this.currentTick <= (subWave.startTick + subWave.duration)) {
+                        currentSubWave = subWave;
+                        
+                        // Early terminate the loop since we found our guy
+                        return true;
+                    }
+                }, this);
+                
+                if (currentSubWave) {
+                    frequency *= currentSubWave.frequencyModifier;
+                }
+            }
+            
+            
+            if(this.currentTick % frequency === 0) {
                 this.spawnBro();
             }
         }
@@ -28,14 +47,20 @@ Object.defineProperties(WaveGenerator.prototype, {
     },
     subWaves: {
         get: function get_subWaves() {
-            return this.currentLevel.subWaves;
+            if (this.currentLevel.subWaves) {
+                return this.currentLevel.subWaves.map(function (subWave) {
+                    return (subWave.startTick / this.totalTicks);
+                }, this.currentLevel);
+            }
+            return [];
         }
     },
     spawnBro: {
         value: function () {
-            var row = this.random(/*number of rows*/7)
-            , shapeIndex = this.random(this.currentLevel.maxShapeIndex)
-            , colorIndex = this.random(this.currentLevel.maxColorIndex);
+            var row = this.random(this.currentLevel.aisles);
+            var shapeIndex = this.random(this.currentLevel.shapes);
+            var colorIndex = this.random(this.currentLevel.colors);
+            
             this.gameEngine.spawnBro(row, shapeIndex, colorIndex);
         }
     },

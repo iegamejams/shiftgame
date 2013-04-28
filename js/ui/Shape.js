@@ -1,48 +1,55 @@
 "use strict"
 
 function Shape(type, colorEnum) {
-
     // "Private"
-    this._elm = document.querySelector("#templates " + type).cloneNode(true);
+    UIElement.call(this, document.querySelector("#templates ." + type).cloneNode(true));
+    this._colorEnum = colorEnum;
+    this._top = 0;
+    this._left = -48;
 
     // Public
     this.type = type;
-    this.top = "0px";
-    this.left = "-48px";
-    this.colorEnum = colorEnum;
+    this.colorEnum = this._colorEnum;
+    this.left = this._left;
+    this.top = this._top;
 
-    document.body.appendChild(this._elm);
+    document.body.appendChild(this._uiElement);
 
     return Object.preventExtensions(this);
 }
 
 
-Shape.prototype = Object.create(null);
+Shape.prototype = Object.create(UIElement.prototype);
 Shape.prototype.constructor = Shape;
 
 Object.defineProperties(Shape.prototype, {
-    top : {
-        get : function() { return this._elm.style.top },
-        set : function(value) {
-            this._elm.style.top = value;
+    top: {
+        get: function get_top() {
+            return this._top;
+        },
+        set: function set_top(value) {
+            this._top = value;
+            this._uiElement.style.top = this._top + "px";
         }
     },
-    left : {
-        get : function() { return this._elm.style.left },
-        set : function(value) {
-            this._elm.style.left = value;
+    left: {
+        get: function get_left() {
+            return this._left;
+        },
+        set: function set_left(value) {
+            this._left = value;
+            this._uiElement.style.left = this._left + "px";
         }
     },
     colorEnum: {
-        get : function () { return this._colorEnum },
-        set : function (value) {
+        get: function get_colorEnum() {
+            return this._colorEnum
+        },
+        set: function set_colorEnum(value) {
             this._colorEnum = value;
-            this.color = Shape.colors[value];
+            this._uiElement.style.fill = Shape.colors[this._colorEnum];
         }
     },
-    color : {
-        get : function() { return this._elm.style.fill }
-    }
 });
 
 Object.defineProperties(Shape, {
