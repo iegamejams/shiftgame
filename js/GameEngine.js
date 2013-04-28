@@ -41,7 +41,7 @@ Object.defineProperties(GameEngine.prototype, {
             this.levelInProgress = true;
             this.gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
-            //this.waveProgressUIWrapper.initUI(this.waveGenerator);
+            this.waveProgress.initUI(this.waveGenerator);
         }
     },
 

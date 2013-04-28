@@ -84,15 +84,28 @@
 
         #waveProgressUI {
         }
-        #progressBar {
-            margin: 35px;
-            margin-left: 30px;
-            margin-right: 30px;
-            height: 30px;
-            background-color: blue;
-        }
         #progressIndicator {
             display: none;
+            border: 5px solid green;
+            height: 15px;
+            position: absolute;
+            top: 5px;
+            transform: rotate(45deg);
+            width: 15px;
+        }
+        .subWaveBar {
+            border: 5px yellow solid;
+            border-radius: 15px;
+            height: 5px;
+            position: absolute;
+            top: 10px;
+            width: 5px;
+        }
+        #progressBar {
+            position: absolute;
+            background: blue;
+            height: 35px;
+            width: 100%;
         }
 
         #panelBlackSquare
@@ -229,7 +242,8 @@
         var gameEngine;
         var sliderUI;
         var levelData = [{
-            // TODO: level data
+            totalTicks: 60 * 120,
+            subWaves: [0.33, 0.66]
         }];
 
         function Init() {
@@ -242,7 +256,7 @@
             sliderUI.initUI();
 
             window.blackSquare = new HealthBlock("blackSquare");
-            
+
             // Start first level
             gameEngine.advanceLevel();
 
@@ -326,7 +340,7 @@
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"><polygon>
             </svg>
-            
+
             <div class="rail">
                 <div class="slot"></div>
             </div>

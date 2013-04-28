@@ -36,6 +36,8 @@ Object.defineProperties(WaveProgressUI.prototype, {
         value: function updateUI(waveGenerator) {
             var progress = waveGenerator.progress;
             var intendedLeft = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * progress));
+
+            this.uiProgressIndicator.style.display = "block";
             if (intendedLeft > 0) {
                 this.uiProgressIndicator.style.left = intendedLeft + "px";
             }

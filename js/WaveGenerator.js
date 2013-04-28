@@ -14,6 +14,7 @@ Object.defineProperties(WaveGenerator.prototype, {
     processTick: {
         // Frame based tick advancement, no time delta
         value: function processTick() {
+            this.currentTick++;
         }
     },
     progress: {
