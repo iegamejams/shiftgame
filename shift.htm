@@ -114,12 +114,8 @@
             width: 768px;
             height: 448px;
             background-color: yellow;
+            overflow: hidden;
         }
-
-            #panelGameBoard::before
-            {
-                content: "Game Board";
-            }
 
         #panelSocial
         {
@@ -157,13 +153,29 @@
             position: absolute;
         }
         .path {
-            stroke: #00f;
+            stroke: #000;
             stroke-width: 4px;
-            fill: #00f;
+            fill: #000;
             fill-opacity: 0.6;
+        }
+        .rail {
+            width: 64px;
+            float: left;
+        }
+        .slot {
+            float: left;
+            width: 48px;
+            height: 48px;
+            border: 2px solid #000;
+            padding: 6px;
+        }
+        .slot .shape .path {
+            stroke-width: 2px;
+            fill-opacity: 0;
         }
     </style>
 
+    <script type="text/javascript" src="js/Util.js"></script>
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
@@ -173,6 +185,7 @@
     <script type="text/javascript" src="js/ui/UIElement.js"></script>
     <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
     <script type="text/javascript" src="js/ui/Shape.js"></script>
+    <script type="text/javascript" src="js/ui/GameBoard.js"></script>
 
     <script>
         //Global Variable
@@ -181,6 +194,7 @@
 
         function Init() {
             _adGenerator = new AdGenerator();
+            _gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
@@ -251,6 +265,10 @@
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"/>
             </svg>
+            
+            <div class="rail">
+                <div class="slot"></div>
+            </div>
         </div>
     </div>
 </body>
