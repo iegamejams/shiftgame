@@ -8,6 +8,7 @@
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
+    <script type="text/javascript" src="js/SoundManager.js"></script>
     <script type="text/javascript" src="js/MinimalismQuotes.js"></script>
 
     <!-- UI Wrapper Components -->
@@ -45,6 +46,9 @@
 
             // Start first level
             gameEngine.advanceLevel();
+
+            // Set up the sound manager
+            SoundManager.setupAudio("soundManager", "audioSingles", "audioInstances");
 
             requestAnimationFrame(GameLoop);
         }
