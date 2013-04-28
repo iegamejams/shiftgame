@@ -100,5 +100,10 @@ Object.defineProperties(GameEngine.prototype, {
                 });
             }
         }
+    },
+    spawnBro: {
+        value: function spawnBro(row, shapeIndex, colorIndex) {
+            // Spawn a bro
+        }
     }
 });

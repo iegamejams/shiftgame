@@ -6,20 +6,28 @@
         <script>
         function Init() {
             var levelData = {
-                totalTicks: 1000,
+                totalTicks: 10,
+                maxShapeIndex: 1,
+                maxColorIndex: 2,
                 subWaves: [0.33, 0.66]
             };
 
-            function appendLog (text) {
+            function appendLog (passed, text) {
                 var results = document.getElementById("results");
-                results.innerHTML = results.innerHTML + " " + text + "<br/>";
+                results.innerHTML = results.innerHTML + " " + passed + " " + (text === undefined ? "" : text) + "<br/>";
             };
 
-            function appendResult (passed) {
-                appendLog(passed ? "SUCCESS" : "TERRIBLE, TRY AGAIN");
+            function appendResult (passed, text) {
+                appendLog(passed ? "SUCCESS" : "TERRIBLE, TRY AGAIN", text);
             };
 
-            var waveGenerator = new WaveGenerator(levelData);
+            var gameEngineMock = {
+                spawnBro: function(row, shapeIndex, colorIndex){
+                    appendResult(true, "gameEngine spawnBro executed");
+                }
+            }
+
+            var waveGenerator = new WaveGenerator(levelData, null, gameEngineMock);
             
             appendLog("Results:");
             appendLog("WaveGenerator::subWaves");
@@ -29,6 +37,16 @@
             appendLog("");
             appendLog("WaveGenerator::progress");
             appendResult(waveGenerator.progress == 0);
+
+            appendLog("");
+            appendLog("WaveGenerator::processTick");
+            waveGenerator.processTick();
+            appendResult(waveGenerator.progress == 0.1);
+
+
+            appendLog("");
+            appendLog("WaveGenerator::spawnBro calls gameEngine spawnBro");
+            waveGenerator.spawnBro();
 
             appendLog("");
             appendLog("And...");
