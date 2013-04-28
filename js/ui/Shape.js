@@ -40,3 +40,9 @@ Object.defineProperties(Shape.prototype, {
         }
     }
 });
+
+Object.defineProperties(Shape, {
+    types : {
+        value : ["square", "circle", "triangle", "cross", "diamond", "pentagon"]
+    }
+});

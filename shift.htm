@@ -125,12 +125,8 @@
             width: 768px;
             height: 448px;
             background-color: yellow;
+            overflow: hidden;
         }
-
-            #panelGameBoard::before
-            {
-                content: "Game Board";
-            }
 
         #panelSocial {
             padding: 20px;
@@ -176,10 +172,26 @@
             position: absolute;
         }
         .path {
-            stroke: #00f;
+            stroke: #000;
             stroke-width: 4px;
-            fill: #00f;
+            fill: #000;
             fill-opacity: 0.6;
+        }
+        .rail {
+            width: 64px;
+            float: left;
+            position: relative;
+        }
+        .slot {
+            float: left;
+            width: 48px;
+            height: 48px;
+            border: 2px solid #000;
+            padding: 6px;
+        }
+        .slot .shape .path {
+            stroke-width: 2px;
+            fill-opacity: 0;
         }
         #blackSquare {
             background-color: black;
@@ -194,6 +206,7 @@
         }
     </style>
 
+    <script type="text/javascript" src="js/Util.js"></script>
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
@@ -204,6 +217,7 @@
     <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
     <script type="text/javascript" src="js/ui/Shape.js"></script>
     <script type="text/javascript" src="js/ui/SliderUI.js"></script>
+    <script type="text/javascript" src="js/ui/GameBoard.js"></script>
 
     <!-- Touch handling components -->
     <script type="text/javascript" src="js/TouchPoint.js"></script>
@@ -214,17 +228,23 @@
         var _adGenerator = null;
         var gameEngine;
         var sliderUI;
+        var levelData = [{
+            // TODO: level data
+        }];
 
         function Init() {
             _adGenerator = new AdGenerator();
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
-            gameEngine = new GameEngine(null, waveUI);
+            gameEngine = new GameEngine(levelData, waveUI);
 
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
 
             window.blackSquare = new HealthBlock("blackSquare");
+            
+            // Start first level
+            gameEngine.advanceLevel();
 
             requestAnimationFrame(GameLoop);
         }
@@ -270,42 +290,46 @@
             </div>
             <div id="panelSliders" class="subPanel">
                 <div id="sliderUI">
-                    <div class="sliderButtons" data-column="1" data-key="a">a</div>
-                    <div class="sliderButtons" data-column="2" data-key="s">s</div>
-                    <div class="sliderButtons" data-column="3" data-key="d">d</div>
-                    <div class="sliderButtons" data-column="4" data-key="f">f</div>
-                    <div class="sliderButtons" data-column="5" data-key="j">j</div>
-                    <div class="sliderButtons" data-column="6" data-key="k">k</div>
-                    <div class="sliderButtons" data-column="7" data-key="l">l</div>
-                    <div class="sliderButtons" data-column="8" data-key=";">;</div>
+                    <div class="sliderButtons" data-column="0" data-key="a">a</div>
+                    <div class="sliderButtons" data-column="1" data-key="s">s</div>
+                    <div class="sliderButtons" data-column="2" data-key="d">d</div>
+                    <div class="sliderButtons" data-column="3" data-key="f">f</div>
+                    <div class="sliderButtons" data-column="4" data-key="j">j</div>
+                    <div class="sliderButtons" data-column="5" data-key="k">k</div>
+                    <div class="sliderButtons" data-column="6" data-key="l">l</div>
+                    <div class="sliderButtons" data-column="7" data-key=";">;</div>
                 </div>
             </div>
         </div>
 
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
-                <rect x="2" y="2" width="44" height="44" class="path"/>
+                <rect x="2" y="2" width="44" height="44" class="path"></rect>
             </svg>
 
             <svg class="shape circle" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="22" class="path"/>
+                <circle cx="24" cy="24" r="22" class="path"></circle>
             </svg>
 
             <svg class="shape triangle" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,46 24,2 46,46" class="path"/>
+                <polygon points="2,46 24,2 46,46" class="path"></polygon>
             </svg>
 
             <svg class="shape cross" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"/>
+                <polygon points="2,35 13,24 2,13 13,2 24,13 35,2 46,13 35,24 46,35 35,46 24,35 13,46" class="path"><polygon>
             </svg>
 
             <svg class="shape diamond" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="8,24 24,2 40,24 24,46" class="path"/>
+                <polygon points="8,24 24,2 40,24 24,46" class="path"><polygon>
             </svg>
 
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"/>
+                <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"><polygon>
             </svg>
+            
+            <div class="rail">
+                <div class="slot"></div>
+            </div>
         </div>
     </div>
 
