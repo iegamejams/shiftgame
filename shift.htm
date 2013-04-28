@@ -58,12 +58,10 @@
             height: 100px;
             background-color: white;
             border-color:purple;
-        }
+            text-align:center;
+            vertical-align:central;
 
-            #panelAd::before
-            {
-                content: "Ad Space";
-            }
+        }
 
         #panelPieceHints
         {
@@ -143,24 +141,30 @@
             background-color: blue;
         }
 
-            #panelSocial::before
-            {
-                content: "Social Networking";
-            }
-
-        #panelSliders
-        {
+        #panelSliders {
             left: 256px;
             top: 0px;
             width: 512px;
             height: 64px;
-            background-color: darkgreen;
+            padding: 0px;
+            margin: 0px;
         }
 
-            #panelSliders::before
-            {
-                content: "Slider Area";
-            }
+        .sliderButtons {
+            display: inline-block;
+            margin-top: 8px;
+            margin-left: 10px;
+            padding: 8px;
+            width: 48px;
+            height: 48px;
+            box-sizing: border-box;
+            border:2px solid green;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
         #templates {
             display: none;
         }
@@ -186,23 +190,18 @@
             border-radius: 10px;
 
         }
-
-        #blackSquareMask {
-            height: 100px;
-            width: 100px;
-
-        }
     </style>
 
     <script type="text/javascript" src="js/GameEngine.js"></script>
     <script type="text/javascript" src="js/WaveGenerator.js"></script>
     <script type="text/javascript" src="js/AdGenerator.js"></script>
-    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
 
     <!-- UI Wrapper Components -->
+    <script type="text/javascript" src="js/ui/HealthBlock.js"></script>
     <script type="text/javascript" src="js/ui/UIElement.js"></script>
     <script type="text/javascript" src="js/ui/WaveProgressUI.js"></script>
     <script type="text/javascript" src="js/ui/Shape.js"></script>
+    <script type="text/javascript" src="js/ui/SliderUI.js"></script>
 
     <!-- Touch handling components -->
     <script type="text/javascript" src="js/TouchPoint.js"></script>
@@ -219,9 +218,10 @@
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
+
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
-
+ 
             window.blackSquare = new HealthBlock("blackSquare");
 
             requestAnimationFrame(GameLoop);
@@ -254,9 +254,7 @@
 
         <div id="panelMid" class="panel">
             <div id="panelBlackSquare" class="subPanel">
-                <div id="blackSquare">
-                    <div id="blackSquareMask"></div>
-                </div>
+                <div id="blackSquare"></div>
             </div>
             <div id="panelLawnmowers" class="subPanel">
             </div>
@@ -268,7 +266,7 @@
             <div id="panelSocial" class="subPanel">
             </div>
             <div id="panelSliders" class="subPanel">
-               <div id="sliderUI">
+                <div id="sliderUI">
                     <div class="sliderButtons" data-column="1" data-key="a">a</div>
                     <div class="sliderButtons" data-column="2" data-key="s">s</div>
                     <div class="sliderButtons" data-column="3" data-key="d">d</div>
