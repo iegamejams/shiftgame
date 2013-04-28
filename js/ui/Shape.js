@@ -1,12 +1,12 @@
 "use strict"
 
-function Shape(typeEnum, colorEnum) {
+function Shape(type, colorEnum) {
 
     // "Private"
-    this._elm = document.querySelector("#templates " + Shape.types[typeEnum]).cloneNode(true);
+    this._elm = document.querySelector("#templates " + type).cloneNode(true);
 
     // Public
-    this.type = Shape.types[typeEnum];
+    this.type = type;
     this.top = "0px";
     this.left = "-48px";
     this.colorEnum = colorEnum;
