@@ -35,12 +35,10 @@ Object.defineProperties(WaveProgressUI.prototype, {
     updateUI: {
         value: function updateUI(waveGenerator) {
             var progress = waveGenerator.progress;
-            var intendedLeft = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * progress));
+            var intendedLeft = (this.uiProgressBar.offsetWidth - (this.uiProgressBar.offsetWidth * progress)) - (this.uiProgressIndicator.offsetWidth / 2);
 
             this.uiProgressIndicator.style.display = "block";
-            if (intendedLeft > 0) {
-                this.uiProgressIndicator.style.left = intendedLeft + "px";
-            }
+            this.uiProgressIndicator.style.left = intendedLeft + "px";
         }
     }
 });
