@@ -186,7 +186,6 @@ body {
     position: fixed;
     width: 1054px;
     height: 648px;
-    background-color: rgba(128, 128, 128, 0.5);
 }
 #popupManager .popup {
     display: none;
@@ -202,6 +201,8 @@ body {
 }
 
 #popupIntro {
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     background-color: white;
     text-align: center;
     vertical-align: middle;
@@ -209,6 +210,34 @@ body {
 #popupIntro_Malevich {
     display: inline-block;
     background-color: black;
-    width: 512px;
+    width: 412px;
+    height: 412px;
+}
+
+#popupCredits {
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#popupCredits_Frame {
+    display: inline-block;
+    width: 912px;
     height: 512px;
+    background-color: beige;
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    padding: 20px;
+}
+
+#popupCredits_Table {
+    margin-top: 30px;
+    width: 100%;
+}
+#popupCredits_Title {
+    font-family: Calibri;
+    font-weight: bold;
+    font-size: 28pt;
 }
