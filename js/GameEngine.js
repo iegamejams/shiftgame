@@ -41,7 +41,7 @@ Object.defineProperties(GameEngine.prototype, {
             this.levelInProgress = true;
             this.gameBoard = new GameBoard(document.querySelector("#panelGameBoard"), 8, 7);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level]);
-            //this.waveProgressUIWrapper.initUI(this.waveGenerator);
+            this.waveProgress.initUI(this.waveGenerator);
         }
     },
 
@@ -104,6 +104,9 @@ Object.defineProperties(GameEngine.prototype, {
     spawnBro: {
         value: function spawnBro(row, shapeIndex, colorIndex) {
             // Spawn a bro
+            var newShape = new Shape(Shape.types.random(), colorIndex);
+            newShape.top = (row * 64) + 8 + 108;
+            newShape.left = 968;
         }
     }
 });
