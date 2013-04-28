@@ -3,6 +3,10 @@
 <head>
     <title>Shift: Simple, Colorful, Fun</title>
     <style>
+        html {
+            -ms-touch-action: none;
+        }
+        
         .screen
         {
             position: absolute;
@@ -56,6 +60,7 @@
             border-color:purple;
             text-align:center;
             vertical-align:central;
+
         }
 
         #panelPieceHints
@@ -198,6 +203,10 @@
     <script type="text/javascript" src="js/ui/Shape.js"></script>
     <script type="text/javascript" src="js/ui/SliderUI.js"></script>
 
+    <!-- Touch handling components -->
+    <script type="text/javascript" src="js/TouchPoint.js"></script>
+    <script type="text/javascript" src="js/TouchPointManager.js"></script>
+
     <script>
         //Global Variable
         var _adGenerator = null;
@@ -209,9 +218,10 @@
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
+
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
-
+ 
             window.blackSquare = new HealthBlock("blackSquare");
 
             requestAnimationFrame(GameLoop);
@@ -269,7 +279,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="44" height="44" class="path"/>
