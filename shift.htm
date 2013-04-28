@@ -40,7 +40,7 @@
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
 
-            window.blackSquare = new HealthBlock("blackSquare");
+            window.blackSquare = new HealthBlock("blackSquare", "blackSquareMask");
 
             // Start first level
             gameEngine.advanceLevel();
@@ -75,7 +75,9 @@
 
         <div id="panelMid" class="panel">
             <div id="panelBlackSquare" class="subPanel">
-                <div id="blackSquare"></div>
+                <div id="blackSquare">
+                    <div id="blackSquareMask"></div>
+                </div>
             </div>
             <div id="panelLawnmowers" class="subPanel">
             </div>

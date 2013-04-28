@@ -178,3 +178,7 @@ html {
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
 }
+#blackSquareMask {
+    height: 100px;
+    width: 100px;
+}
