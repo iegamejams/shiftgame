@@ -45,7 +45,7 @@ Object.defineProperties(GameEngine.prototype, {
     restartLevel: {
         value: function restartLevel() {
             this.levelInProgress = true;
-            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent);
+            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent, this.levelData[this.level].shapes);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level], this);
             this.waveProgress.initUI(this.waveGenerator);
         }
