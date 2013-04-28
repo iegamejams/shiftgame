@@ -1,5 +1,6 @@
 html {
     -ms-touch-action: none;
+    -ms-user-select: none;
 }
 .screen {
     position: absolute;
