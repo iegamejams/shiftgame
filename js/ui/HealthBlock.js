@@ -7,13 +7,12 @@ function clamp(val, max) {
     return val;
 }
 
-function HealthBlock(blockElementId, maskId) {
+function HealthBlock(blockElementId) {
     this.red = 0;
     this.green = 0;
     this.blue = 0;
 
     this.element = document.getElementById(blockElementId);
-    this.mask = document.getElementById(maskId);
     
     return this;
 }
@@ -29,11 +28,7 @@ Object.defineProperties(HealthBlock.prototype, {
             this.green = clamp(this.green + g, 255);
             this.blue = clamp(this.blue + b, 255);
 
-            this.element.style.backgroundColor = "rgb(" + this.red + ", " + this.green + ", " + this.blue + ")";
-
-            if (this.isWhite()) {
-                this.showDeathMask();
-            }
+            this.element.style.backgroundColor = "rgb(" + this.red + ", " + this.green + ", " + this.blue + ")"
 
             return this;
         }
@@ -52,18 +47,6 @@ Object.defineProperties(HealthBlock.prototype, {
                 green: this.green,
                 blue: this.blue
             };
-        }
-    },
-    getLightness: {
-        // Returns a value from 0.0 to 1.0 representing the lightness.
-        // Intended as a one-dimensional damage indicator.
-        value: function getLightness() {
-            return (this.red + this.green + this.blue) / (255 * 3);
-        }
-    },
-    showDeathMask: {
-        value: function showDeathMask() {
-            this.mask.style.background = 'url("images/deathmask.png")';
         }
     }
 
