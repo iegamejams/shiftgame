@@ -6,6 +6,8 @@
 function TouchPoint(x, y) {
     this._currentPosition = {x : x, y : y};
     this._downPosition = {x : null, y : null};
+    this._alreadySwiped = false;
+    this._swipeHandler = null;
 }
 
 TouchPoint.prototype = Object.create(null);
@@ -25,6 +27,12 @@ Object.defineProperties(TouchPoint.prototype, {
         value: function move(x, y) {
             this._currentPosition.x = x;
             this._currentPosition.y = y;
+            if(this.swipeHappened() && this._swipeHandler) {
+                this._swipeHandler();
+                if(TOUCH_DEBUG) {
+                    console.log("Swipe happened!");
+                }
+            }
         }
     },
 
@@ -40,6 +48,24 @@ Object.defineProperties(TouchPoint.prototype, {
     getCurrentPosition: {
         value: function getCurrentPosition() {
             return this._currentPosition;
+        }
+    },
+
+    setSwipeHandler: {
+        value: function setSwipeHandler(funcHandle) {
+            this._swipeHandler = funcHandle;
+        }
+    },
+
+    swipeHappened: {
+        value: function swipeHappened() {
+            if(!this._alreadySwiped) {
+                if(this._currentPosition.y > this._downPosition.y + 32) {
+                    this._alreadySwiped = true;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 });
