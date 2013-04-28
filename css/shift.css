@@ -142,6 +142,28 @@ body {
     font-weight: bold;
     text-transform: uppercase;
 }
+#panelButtons {
+    left: 776px;
+    height: 64px;
+    width: 248px;
+    text-align: center;
+}
+#pauseButton {
+    display: inline-block;
+    margin: 6px;
+    padding: 15px 8px 1px 8px;
+    width: 32px;
+    height: 32px;
+    border:2px solid green;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 #templates {
     display: none;
 }
@@ -223,7 +245,7 @@ body {
     vertical-align: middle;
 }
 
-#popupLevel {
+#popupLevel, #popupPause {
     border-top-left-radius: 15px;
     border-bottom-right-radius: 15px;
     background-color: rgba(0, 0, 0, 0.5);
@@ -296,13 +318,10 @@ body {
     font-style: italic;
 }
 
-            <div id="popupLevel_Frame" class="popupFrame">
-                <div id="popupLevel_Title">Level <span id="popupLevel_Level"></span></div>
-                <div id="popupLevel_StudentTitle">Student says:</div>
-                <div id="popupLevel_StudentSaying"></div>
-
-                <div id="popupLevel_MasterTitle">Master says:</div>
-                <div id="popupLevel_MasterSaying">Master says:</div>
-
-                <div id="popupLevel_Enlightened">... and the student was enlightened.</div>
-            </div>
+#popupPause_Saying {
+    display: inline-block;
+    margin-top: 200px;
+    width: 400px;
+    font-size: 24pt;
+    font-style: italic;
+}

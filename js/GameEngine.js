@@ -68,6 +68,15 @@ Object.defineProperties(GameEngine.prototype, {
             PopupManager.showPopup("popupLevel");
         }
     },
+    pauseGame: {
+        value: function pauseGame() {
+            var popupPause = PopupManager.getPopup("popupPause");
+            
+            // TODO: Random saying about pausing?
+            
+            PopupManager.showPopup("popupPause");
+        }
+    },
 
     processTick: {
         value: function processTick() {

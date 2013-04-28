@@ -155,6 +155,10 @@
                     <div class="sliderButtons" data-column="7" data-key=";">;</div>
                 </div>
             </div>
+
+            <div id="panelButtons" class="subPanel">
+                <div id="pauseButton" onclick="if (gameEngine) { gameEngine.pauseGame(); }">| |</div>
+            </div>
         </div>
 
         <div id="templates">
@@ -193,6 +197,16 @@
         <!-- Introduction screen popup. Shows an ominous black square on white background. -->
         <div id="popupIntro" class="popup visible">
             <div id="popupIntro_Malevich"></div>
+        </div>
+
+        <!-- Pause Popup -->
+        <div id="popupPause" class="popup">
+            <div id="popupPause_Frame" class="popupFrame">
+                <div id="popupPause_Saying">
+                    A learned man takes each step forward in life without...<br><br>
+                    pause...
+                </div>
+            </div>
         </div>
 
         <!-- Level Popup -->
