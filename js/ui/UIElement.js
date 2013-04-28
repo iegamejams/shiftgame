@@ -7,26 +7,33 @@ function UIElement(uiElement) {
 UIElement.prototype = Object.create(null);
 UIElement.prototype.constructor = UIElement;
 
-Object.defineProperties(UIElement.prototype, {
+// Static functions
+Object.defineProperties(UIElement, {
     addClass: {
         value: function addClass(className, classToAdd) {
             var classes = className.split(/\s+/);
-            if (Array.contains(classes, classToAdd)) {
+            if (classes.some(function (className) { return (className === classToAdd); })) {
                 return className;
             }
             else {
-                return classes.push(classToAdd).join(' ');
+                classes.push(classToAdd)
+                return classes.join(' ');
             }
         }
     },
     removeClass: {
         value: function removeClass(className, classToRemove) {
             var classes = className.split(/\s+/);
-            while (Array.remove(classes, classToRemove)) {}
+            classes = classes.filter(function (className) {
+                return (className !== classToRemove);
+            });
             return classes.join(' ');
         }
     },
-    
+});
+
+// Instance functions    
+Object.defineProperties(UIElement.prototype, {
     updateUI: {
         value: function updateUI() {
         }

@@ -77,7 +77,10 @@ Object.defineProperties(GameEngine.prototype, {
     // Gameplay management functions
     slideColumn: {
         value: function slideColumn(column) {
-            this.gameBoard.slideRail(column);
+            // Protect input while we are paused.
+            if (!PopupManager.paused) {
+                this.gameBoard.slideRail(column);
+            }
         }
     },
     

@@ -21,6 +21,9 @@
     <script type="text/javascript" src="js/ui/SliderUI.js"></script>
     <script type="text/javascript" src="js/ui/GameBoard.js"></script>
 
+    <!-- UI for popup screens and game pausing -->
+    <script type="text/javascript" src="js/PopupManager.js"></script>
+
     <!-- Touch handling components -->
     <script type="text/javascript" src="js/TouchPoint.js"></script>
     <script type="text/javascript" src="js/TouchPointManager.js"></script>
@@ -60,14 +63,21 @@
             gameEngine.advanceLevel();
 
             // Set up the sound manager
+            PopupManager.initPopups(document.getElementById("popupManager"), "popup");
             SoundManager.setupAudio("soundManager", "audioSingles", "audioInstances");
 
+            // Start the animation loop
             requestAnimationFrame(GameLoop);
+
+            // But immediately pause the game for the intro screen
+            PopupManager.showPopup("popupIntro");
         }
 
         function GameLoop() {
-            gameEngine.processTick();
-            _adGenerator.processTick();
+            if (!PopupManager.paused) {
+                gameEngine.processTick();
+                _adGenerator.processTick();
+            }
 
             requestAnimationFrame(GameLoop);
         }
@@ -146,6 +156,14 @@
             <div class="rail">
                 <div class="slot"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- Game Popups -->
+    <div id="popupManager" class="visible">
+        <!-- Introduction screen popup. Shows an ominous black square on white background. -->
+        <div id="popupIntro" class="popup visible">
+            <div id="popupIntro_Malevich"></div>
         </div>
     </div>
 
