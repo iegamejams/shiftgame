@@ -1,7 +1,8 @@
 "use strict";
 
-function WaveGenerator(levelData) {
+function WaveGenerator(levelData, waveProgressUIWrapper) {
     this.currentLevel = levelData;
+    this.currentTick = 0;
     
     return Object.preventExtensions(this);
 }
@@ -13,6 +14,16 @@ Object.defineProperties(WaveGenerator.prototype, {
     processTick: {
         // Frame based tick advancement, no time delta
         value: function processTick() {
+        }
+    },
+    progress: {
+        get: function get_progress() {
+            return this.currentTick / this.curentLevel.totalTicks;
+        }
+    },
+    subWaves: {
+        get: function get_subWaves() {
+            return [0.33, 0.66];
         }
     },
 });
