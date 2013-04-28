@@ -54,12 +54,9 @@
             height: 100px;
             background-color: white;
             border-color:purple;
+            text-align:center;
+            vertical-align:central;
         }
-
-            #panelAd::before
-            {
-                content: "Ad Space";
-            }
 
         #panelPieceHints
         {
@@ -97,7 +94,7 @@
         {
             left: 0px;
             top: 0px;
-            width: 248px;
+            width: 198px;
             height: 448px;
             background-color: orange;
         }
@@ -106,6 +103,15 @@
             {
                 content: "Malevich says, don't be a bitch";
             }
+
+        #panelLawnmowers
+        {
+            left: 198px;
+            top: 0px;
+            width: 50px;
+            height: 448px;
+            background-color: #DDD;
+        }
 
         #panelGameBoard
         {
@@ -162,6 +168,17 @@
             fill: #00f;
             fill-opacity: 0.6;
         }
+        #blackSquare {
+            background-color: black;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 50px;
+            height: 100px;
+            width: 100px;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+
+        }
     </style>
 
     <script type="text/javascript" src="js/GameEngine.js"></script>
@@ -184,6 +201,8 @@
 
             var waveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
             gameEngine = new GameEngine(null, waveUI);
+
+            window.blackSquare = new HealthBlock("blackSquare");
 
             requestAnimationFrame(GameLoop);
         }
@@ -215,6 +234,9 @@
 
         <div id="panelMid" class="panel">
             <div id="panelBlackSquare" class="subPanel">
+                <div id="blackSquare"></div>
+            </div>
+            <div id="panelLawnmowers" class="subPanel">
             </div>
             <div id="panelGameBoard" class="subPanel">
             </div>

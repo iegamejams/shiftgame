@@ -3,7 +3,7 @@
 function Shape(type, color) {
     
     // "Private"
-    this._shape = document.querySelector("#templates .shape." + type).cloneNode(true);
+    this._elm = document.querySelector("#templates .shape." + type).cloneNode(true);
     
     // Public
     this.type = type;
@@ -11,7 +11,7 @@ function Shape(type, color) {
     this.left = "-48px";
     this.color = color;
     
-    document.body.appendChild(this._shape);
+    document.body.appendChild(this._elm);
     
     return Object.preventExtensions(this);
 }
@@ -21,24 +21,21 @@ Shape.prototype.constructor = Shape;
 
 Object.defineProperties(Shape.prototype, {
     top : {
-        get : function() { return this._top },
+        get : function() { return this._elm.style.top },
         set : function(value) {
-            this._top = value;
-            this._shape.style.top = value;
+            this._elm.style.top = value;
         }
     },
     left : {
-        get : function() { return this._left },
+        get : function() { return this._elm.style.left },
         set : function(value) {
-            this._left = value;
-            this._shape.style.left = value;
+            this._elm.style.left = value;
         }
     },
     color : {
-        get : function() { return this._color },
+        get : function() { return this._elm.style.fill },
         set : function(value) {
-            this._color = value;
-            var path = this._shape.querySelector(".path");
+            var path = this._elm.querySelector(".path");
             path.style.fill = path.style.stroke = value;
         }
     }
