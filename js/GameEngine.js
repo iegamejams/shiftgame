@@ -102,11 +102,11 @@ Object.defineProperties(GameEngine.prototype, {
         }
     },
     spawnBro: {
-        value: function spawnBro(row, shapeIndex, colorIndex) {
+        value: function spawnBro(row, type, color) {
             // Spawn a bro
-            var newShape = new Shape(Shape.types.random(), colorIndex);
-            newShape.top = (row * 64) + 8 + 108;
-            newShape.left = 968;
+            var shape = new Shape(type, color);
+            shape.top = (row * 64) + 8 + 108;
+            shape.left = 968;
         }
     }
 });
