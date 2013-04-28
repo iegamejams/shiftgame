@@ -166,7 +166,7 @@ html {
 }
 .slot .shape .path {
     stroke-width: 2px;
-    fill-opacity: 0;
+    fill-opacity: 1;
 }
 #blackSquare {
     background-color: black;
