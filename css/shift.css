@@ -58,9 +58,7 @@ body {
     height: 100px;
     background-color: red;
 }
-#panelPieceHints::before {
-    content: "Hints";
-}
+
 #panelWaveProgress {
     left: 776px;
     top: 0px;

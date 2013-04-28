@@ -34,9 +34,11 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
         rail.setAttribute("index", i);
         this.rails.push(rail);
         for (var j = 0; j < height; j++) {
-            rail.appendChild(this.createSlot());
+            rail.appendChild(this.createSlot(false, j));
         }
         this._uiElement.appendChild(rail);
+
+        this.uiHintElement.appendChild(this.createSlot(false, -1));
     }
     
     return Object.preventExtensions(this);
@@ -47,13 +49,33 @@ GameBoard.prototype.constructor = GameBoard;
 
 Object.defineProperties(GameBoard.prototype, {
     createSlot : {
-        value : function() {
+        value : function(gamestarted, rowNumber) {
             var slot = document.querySelector("#templates .slot").cloneNode(true);
 
-            if (this.pegSpawnPercent > Math.random()) {
+            if (rowNumber < 0) {
                 var shapeIndex = Math.floor(Math.random() * this.pegMaxShape);
 
                 slot.appendChild(document.querySelector("#templates ." + Shape.types[shapeIndex]).cloneNode(true));
+            }
+            else if (rowNumber >= 0 && this.pegSpawnPercent > Math.random()) {
+                
+                if (!gamestarted) {
+                    var shapeIndex = Math.floor(Math.random() * this.pegMaxShape);
+
+                    slot.appendChild(document.querySelector("#templates ." + Shape.types[shapeIndex]).cloneNode(true));
+                }
+                else {
+                    //this.uiHintElement.children[rowNumber]
+                    if (this.uiHintElement.children[rowNumber].children.length > 0) {
+                        var shape = this.uiHintElement.children[rowNumber].children[0];
+                        this.uiHintElement.children[rowNumber].removeChild(shape);
+                        slot.appendChild(shape);
+
+                        var shapeIndex = Math.floor(Math.random() * this.pegMaxShape);
+
+                        this.uiHintElement.children[rowNumber].appendChild(document.querySelector("#templates ." + Shape.types[shapeIndex]).cloneNode(true));
+                    }
+                }
             }
             return slot;
         }
@@ -65,7 +87,7 @@ Object.defineProperties(GameBoard.prototype, {
                 return false; // Can't slide the rail if it's currently completing the previous slide
             }
             rail.animating = true;
-            rail.insertBefore(this.createSlot(), rail.firstChild);
+            rail.insertBefore(this.createSlot(true, railNumber), rail.firstChild);
             rail.style.top = "-64px";
         }
     },
