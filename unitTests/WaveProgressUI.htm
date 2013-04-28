@@ -4,12 +4,16 @@
         <title></title>
         <script src="../js/ui/UIElement.js"></script>
         <script src="../js/ui/WaveProgressUI.js"></script>
+        <script src="../js/BroSurge.js"></script>
         <script src="../js/WaveGenerator.js"></script>
         <script>
 
             var levelData = {
                 totalTicks: 100,
-                subWaves: [0.10, 0.33, 0.66]
+                subWaves: [
+                    new BroSurge(0.10, 200),
+                    new BroSurge(0.33, 150),
+                    new BroSurge(0.66, 100)]
             };
 
             var testWaveGenerator = new WaveGenerator(levelData);
