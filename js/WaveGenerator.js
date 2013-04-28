@@ -33,10 +33,10 @@ Object.defineProperties(WaveGenerator.prototype, {
     },
     spawnBro: {
         value: function () {
-            var row = this.random(/*number of rows*/7)
-            , shapeIndex = this.random(this.currentLevel.maxShapeIndex)
-            , colorIndex = this.random(this.currentLevel.maxColorIndex);
-            this.gameEngine.spawnBro(row, shapeIndex, colorIndex);
+            var row = this.random(/*number of rows*/ 7);
+            var shape = Shape.types[this.random(this.currentLevel.maxShapeIndex)];
+            var color = Shape.colors[this.random(this.currentLevel.maxColorIndex)];
+            this.gameEngine.spawnBro(row, shape, color);
         }
     },
     random: {
