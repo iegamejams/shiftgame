@@ -6,7 +6,7 @@
         html {
             -ms-touch-action: none;
         }
-        
+
         .screen
         {
             position: absolute;
@@ -132,12 +132,14 @@
                 content: "Game Board";
             }
 
-        #panelSocial
-        {
+        #panelSocial {
+            padding: 20px;
             left: 0px;
             top: 0px;
             width: 248px;
             height: 64px;
+            box-sizing: border-box;
+            text-align: center;
             background-color: blue;
         }
 
@@ -221,7 +223,7 @@
 
             sliderUI = new SliderUI(document.getElementById("sliderUI"), gameEngine);
             sliderUI.initUI();
- 
+
             window.blackSquare = new HealthBlock("blackSquare");
 
             requestAnimationFrame(GameLoop);
@@ -279,7 +281,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="templates">
             <svg class="shape square" xmlns="http://www.w3.org/2000/svg">
                 <rect x="2" y="2" width="44" height="44" class="path"/>
