@@ -4,12 +4,37 @@
         <title></title>
         <script src="../js/ui/UIElement.js"></script>
         <script src="../js/ui/WaveProgressUI.js"></script>
+        <script src="../js/WaveGenerator.js"></script>
         <script>
+
+            var levelData = {
+                totalTicks: 1000,
+                subWaves: [0.33, 0.66]
+            };
+            var testWaveGenerator = new WaveGenerator(levelData);
         var testWaveUI;
         function Init() {
             testWaveUI = new WaveProgressUI(document.getElementById("waveProgressUI"));
+            testWaveUI.initUI(testWaveGenerator);
+        }
+
+        function moveProgress() {
+            window.setInterval("testWaveUI.updateUI(testWaveGenerator)", 500);
         }
         </script>
+        <style>
+            #progressBar {
+                background: blue;
+                width: 20%;
+            }
+            .subWaveBar {
+                width: 5px;
+                height: 5px;
+                border: 5px yellow solid;
+                border-radius: 15px;
+                position: relative;
+            }
+        </style>
     </head>
     <body onload="Init();">
         <div id="waveProgressUI">
@@ -17,5 +42,6 @@
                 <div id="progressIndicator"></div>
             </div>
         </div>
+        <button onclick="moveProgress()">Test</button>
     </body>
 </html>
