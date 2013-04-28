@@ -12,6 +12,7 @@ function Shape(type, colorEnum) {
     this.colorEnum = colorEnum;
     this.left = 0;
     this.top = 0;
+    this.speed = 1;
 
     return Object.preventExtensions(this);
 }
@@ -23,7 +24,7 @@ Shape.prototype.constructor = Shape;
 Object.defineProperties(Shape.prototype, {
     processTick: {
         value: function processTick() {
-            this.left--;
+            this.left = this.left - this.speed;
         }
     },
     top: {
