@@ -45,6 +45,9 @@
             // Start first level
             gameEngine.advanceLevel();
 
+            // Set up the sound manager
+            SoundManager.setupAudio("soundManager", "audioSingles", "audioInstances");
+
             requestAnimationFrame(GameLoop);
         }
 
