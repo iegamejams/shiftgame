@@ -61,9 +61,36 @@ Object.defineProperties(GameEngine.prototype, {
                 // Update all of our UI states
                 this.waveProgress.updateUI(this.waveGenerator);
 
-                //For Each Shapt Object in our collection, process Tick
+                //For Each Shape Object in our collection, process Tick
                 for (var i = 0; i < this.shapeArray.length; i++) {
                     this.shapeArray[i].processTick();
+                    if (this.shapeArray[i].left < -50) {
+                        var shapeToRemove = this.shapeArray.splice(i, 1)[0];
+                        this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
+                    }
+                }
+
+                //TODO: Process Collisions here
+                for (var i = 0; i < this.shapeArray.length; i++) {
+                    var point = new Object();
+                    point.x = this.shapeArray[i].left;
+                    point.y = this.shapeArray[i].top;
+                    var rowNumber = this.gameBoard.getRailIndexFromBoardCoords(point);
+                    var slotNumber = this.gameBoard.getSlotIndexFromBoardCoords(point);
+                    if (rowNumber != null && slotNumber != null && rowNumber < 8) {
+                        var rail = this.gameBoard.rails[rowNumber];
+                        if (!rail.animating) {
+                            if (rail.children[slotNumber].children.length > 0) {
+                                if ((Math.abs((rowNumber*64) -this.shapeArray[i].left) < 8) &&
+                                    rail.children[slotNumber].children[0].className.baseVal == "shape " + this.shapeArray[i].type) {
+                                    var shapeToRemove = this.shapeArray.splice(i, 1)[0];
+                                    this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
+                                    rail.children[slotNumber].removeChild(rail.children[slotNumber].children[0]);
+                                }
+                            }
+                        }
+                    }
+
                 }
                 
                 // Determine that we need another requestAnimationFrame();

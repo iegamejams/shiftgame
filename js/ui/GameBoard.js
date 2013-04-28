@@ -85,7 +85,16 @@ Object.defineProperties(GameBoard.prototype, {
             }
             return null;
         }
+    },
+    getSlotIndexFromBoardCoords : {
+    value : function(point) {
+        // update this if the magic numbers change :)
+        if(point.x >= 0 && point.x < 768 && point.y >= 0 && point.y < 448) {
+            return parseInt(point.y / 64);
+        }
+        return null;
     }
+}
 });
 
 Object.defineProperties(GameBoard, {
