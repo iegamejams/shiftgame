@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Shift: Simple, Colorful, Fun</title>
-
     <link rel="stylesheet" type="text/css" href="css/shift.css" />
 
     <script type="text/javascript" src="js/Util.js"></script>
@@ -28,7 +27,8 @@
         var gameEngine;
         var sliderUI;
         var levelData = [{
-            // TODO: level data
+            totalTicks: 60 * 120,
+            subWaves: [0.33, 0.66]
         }];
 
         function Init() {
@@ -41,7 +41,7 @@
             sliderUI.initUI();
 
             window.blackSquare = new HealthBlock("blackSquare");
-            
+
             // Start first level
             gameEngine.advanceLevel();
 
@@ -125,7 +125,7 @@
             <svg class="shape pentagon" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="2,20 24,2 46,20 38,46 10,46" class="path"></polygon>
             </svg>
-            
+
             <div class="rail">
                 <div class="slot"></div>
             </div>
