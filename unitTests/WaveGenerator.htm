@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Wave Generator Unit Tests</title>
+        <script src="../js/BroSurge.js"></script>
         <script src="../js/WaveGenerator.js"></script>
         <script>
         function Init() {
@@ -9,7 +10,10 @@
                 totalTicks: 10,
                 maxShapeIndex: 1,
                 maxColorIndex: 2,
-                subWaves: [0.33, 0.66]
+                baseBroticks: 300,
+                subWaves: [
+                    new BroSurge(0.33, 150),
+                    new BroSurge(0.66, 100)]
             };
 
             function appendLog (passed, text) {
@@ -31,8 +35,10 @@
             
             appendLog("Results:");
             appendLog("WaveGenerator::subWaves");
-            appendResult(waveGenerator.subWaves[0] == 0.33);
-            appendResult(waveGenerator.subWaves[1] == 0.66);
+            appendResult(waveGenerator.subWaves[0].start == 0.33);
+            appendResult(waveGenerator.subWaves[0].broticks == 150);
+            appendResult(waveGenerator.subWaves[1].start == 0.66);
+            appendResult(waveGenerator.subWaves[1].broticks == 100);
 
             appendLog("");
             appendLog("WaveGenerator::progress");
