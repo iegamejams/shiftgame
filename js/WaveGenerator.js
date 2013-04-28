@@ -15,34 +15,41 @@ Object.defineProperties(WaveGenerator.prototype, {
     processTick: {
         // Frame based tick advancement, no time delta
         value: function processTick() {
-            this.currentTick++;
-            
-            var frequency = this.currentLevel.frequency;
-            if (this.currentLevel.subWaves) {
-                var currentSubWave;
-                this.currentLevel.subWaves.some(function (subWave) {
-                    if (this.currentTick >= subWave.startTick && this.currentTick <= (subWave.startTick + subWave.duration)) {
-                        currentSubWave = subWave;
-                        
-                        // Early terminate the loop since we found our guy
-                        return true;
+            if (!this.complete) {
+                this.currentTick++;
+
+                var frequency = this.currentLevel.frequency;
+                if (this.currentLevel.subWaves) {
+                    var currentSubWave;
+                    this.currentLevel.subWaves.some(function (subWave) {
+                        if (this.currentTick >= subWave.startTick && this.currentTick <= (subWave.startTick + subWave.duration)) {
+                            currentSubWave = subWave;
+
+                            // Early terminate the loop since we found our guy
+                            return true;
+                        }
+                    }, this);
+
+                    if (currentSubWave) {
+                        frequency *= currentSubWave.frequencyModifier;
                     }
-                }, this);
-                
-                if (currentSubWave) {
-                    frequency *= currentSubWave.frequencyModifier;
                 }
-            }
-            
-            
-            if(this.currentTick % frequency === 0) {
-                this.spawnBro();
+
+
+                if(this.currentTick % frequency === 0) {
+                    this.spawnBro();
+                }
             }
         }
     },
     progress: {
         get: function get_progress() {
             return this.currentTick / this.currentLevel.totalTicks;
+        }
+    },
+    complete: {
+        get: function get_complete() {
+            return (this.currentTick >= this.currentLevel.totalTicks);
         }
     },
     subWaves: {
