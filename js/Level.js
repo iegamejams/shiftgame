@@ -1,6 +1,6 @@
 "use strict";
 
-function Level(frequency, totalTicks, shapes, colors, aisles, broSpeed, subWaves) {
+function Level(frequency, totalTicks, shapes, colors, aisles, broSpeed, pegSpawnPercent, subWaves) {
     function validateSubWaves(level) {
         level.subWaves.forEach(function (subWave) {
             if (subWave.startTick <= 0 || subWave.startTick >= this.totalTicks) {
@@ -22,6 +22,7 @@ function Level(frequency, totalTicks, shapes, colors, aisles, broSpeed, subWaves
     this.colors = colors;
     this.aisles = aisles;
     this.broSpeed = broSpeed;
+    this.pegSpawnPercent = pegSpawnPercent;
     this.subWaves = Object.freeze(subWaves);
     
     // Validate subWaves
