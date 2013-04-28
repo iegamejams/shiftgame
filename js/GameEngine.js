@@ -10,6 +10,8 @@ function GameEngine(levelData, waveProgressUIWrapper) {
     this.waveProgress = waveProgressUIWrapper;
     
     this.eventHandlers = {};
+
+    this.touchPointManager = new TouchPointManager(document);
     
     return Object.preventExtensions(this);
 }

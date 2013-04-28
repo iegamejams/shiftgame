@@ -37,7 +37,7 @@ Object.defineProperties(SliderUI.prototype, {
                 var targetKey = uiButton.getAttribute("data-key");
                 var targetColumn = uiButton.getAttribute("data-column") >> 0;
                 
-                if (evt.char === targetKey) {
+                if (String.fromCharCode(evt.which).toLowerCase() === targetKey.toLowerCase()) {
                     this.gameEngine.slideColumn(targetColumn);
                 }
             }, this);

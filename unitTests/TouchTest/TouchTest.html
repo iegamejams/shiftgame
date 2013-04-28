@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Try multitouch</title>
+
+    <style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: black;
+        -ms-content-zooming: none;
+    }
+
+    #canvas {
+        background-color: #000;
+        -ms-touch-action: none;
+    }
+    </style>
+</head>
+<body onload="setupWorld()">
+    <div id="canvaswrapper">
+        <canvas id="canvas" width='800' height='600'></canvas>
+    </div>
+    <script type="text/javascript" src="../../js/TouchPoint.js"></script>
+    <script type="text/javascript" src="../../js/TouchPointManager.js"></script>
+    <script type="text/javascript" src="TouchTest.js"></script>
+</body>
+</html>

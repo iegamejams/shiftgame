@@ -1,5 +1,7 @@
 ﻿"use strict";
 
+var TOUCH_DEBUG = false;
+
 // TouchPointManager(targetElement)
 // Initialize with the element that is the target of the events.
 //
@@ -37,19 +39,26 @@ Object.defineProperties(TouchPointManager.prototype, {
                 document.addEventListener(this._moveevent, this.moveTouchPoint.bind(this), false);
             }
 
-            var pID = e._pointerId || 0;
+            var pID = e.pointerId || 0;
             if(!this._points[pID]) {
                 this._pointCount++;
                 this._points[pID] = new TouchPoint(e.clientX, e.clientY);
                 this._points[pID].down(e.clientX, e.clientY);
+                if(TOUCH_DEBUG) {
+                    console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
+                }
             }
         }
     },
 
     removeTouchPoint: {
         value: function removeTouchPoint(e) {
-            var pID = e._pointerId || 0;
+            var pID = e.pointerId || 0;
             if(this._points[pID]) {
+                if(TOUCH_DEBUG) {
+                    console.log("Removing touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
+                }
+
                 this._points[pID].up(e.clientX, e.clientY);
 
                 delete this._points[pID];
@@ -64,9 +73,13 @@ Object.defineProperties(TouchPointManager.prototype, {
 
     moveTouchPoint: {
         value: function moveTouchPoint(e) {
-            var pID = e._pointerId || 0;
+            var pID = e.pointerId || 0;
             if(this._points[pID]) {
                 this._points[pID].move(e.clientX, e.clientY);
+            }
+
+            if(TOUCH_DEBUG) {
+                console.log("Moving touch point for pID: " + pID + ", to: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
             }
         }
     },
@@ -77,7 +90,7 @@ Object.defineProperties(TouchPointManager.prototype, {
     doAsEachPoint: {
         value: function doAsEachPoint(funcHandle, args) {
             this._points.forEach(function(point) {
-                funcHandle.bind(point.getCoordinates(), args)();
+                funcHandle.bind(point.getCurrentPosition(), args)();
             });
         }
     }
