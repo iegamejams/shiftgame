@@ -5,6 +5,9 @@ function SliderUI(uiElement, gameEngine) {
     
     this.uiSliderButtons = this._uiElement.getElementsByClassName("sliderButtons");
     this.gameEngine = gameEngine;
+
+    this.sounds = ["boop1", "boop2", "boop3"];
+    this.currentSound = 0;
 }
 
 SliderUI.prototype = Object.create(UIElement.prototype);
@@ -28,6 +31,7 @@ Object.defineProperties(SliderUI.prototype, {
     processClick: {
         value: function processClick(evt) {
             var targetColumn = evt.target.getAttribute("data-column") >> 0;
+            SoundManager.play(this.sounds[this.currentSound++ % this.sounds.length]);
             this.gameEngine.slideColumn(targetColumn);
         }
     },
@@ -38,6 +42,7 @@ Object.defineProperties(SliderUI.prototype, {
                 var targetColumn = uiButton.getAttribute("data-column") >> 0;
                 
                 if (String.fromCharCode(evt.which).toLowerCase() === targetKey.toLowerCase()) {
+                    SoundManager.play(this.sounds[this.currentSound++ % this.sounds.length]);
                     this.gameEngine.slideColumn(targetColumn);
                 }
             }, this);
