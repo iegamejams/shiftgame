@@ -1,6 +1,6 @@
 "use strict"
 
-function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent, pegMaxShape) {
+function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent, pegMaxShape, pegMaxColor) {
     UIElement.call(this, uiElement);
 
     // Private
@@ -23,10 +23,12 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
         }
     });
     this.rails = [];
+    this.blockers = [];
     this.gameEngine = gameEngine;
     this.uiHintElement = uiHintElement;
     this.pegSpawnPercent = pegSpawnPercent;
     this.pegMaxShape = pegMaxShape;
+    this.pegMaxColor = pegMaxColor;
     
     // Build game board UI
     for (var i = 0; i < width; i++) {
@@ -39,6 +41,10 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
         this._uiElement.appendChild(rail);
 
         this.uiHintElement.appendChild(this.createSlot(false, -1));
+    }
+    
+    for (var i = 0; i < height; i++) {
+        this.blockers.push(new Blocker(Math.floor(Math.random() * this.pegMaxColor)));
     }
     
     return Object.preventExtensions(this);
@@ -109,7 +115,7 @@ Object.defineProperties(GameBoard.prototype, {
     getRailIndexFromBoardCoords : {
         value : function(point) {
             // update this if the magic numbers change :)
-            if(point.x >= 256 && point.x < 768 && point.y >= 0 && point.y < 448) {
+            if(point.x >= 192 && point.x < 768 && point.y >= 0 && point.y < 448) {
                 return parseInt(point.x / 64) - 4;
             }
             return null;
@@ -118,7 +124,7 @@ Object.defineProperties(GameBoard.prototype, {
     getSlotIndexFromBoardCoords : {
     value : function(point) {
         // update this if the magic numbers change :)
-        if(point.x >= 256 && point.x < 768 && point.y >= 0 && point.y < 448) {
+        if(point.x >= 192 && point.x < 768 && point.y >= 0 && point.y < 448) {
             return parseInt(point.y / 64);
         }
         return null;
