@@ -67,6 +67,15 @@ Object.defineProperties(GameBoard.prototype, {
                 }
             });
         }
+    },
+    getRailIndexFromBoardCoords : {
+        value : function(point) {
+            // update this if the magic numbers change :)
+            if(point.x >= 0 && point.x < 768 && point.y >= 0 && point.y < 448) {
+                return parseInt(point.x / 64);
+            }
+            return null;
+        }
     }
 });
 

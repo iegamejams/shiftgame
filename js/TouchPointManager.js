@@ -48,6 +48,27 @@ Object.defineProperties(TouchPointManager.prototype, {
                 this._points[pID].down(e.clientX, e.clientY);
             }
 
+            var boardCoords = {
+                x : e.clientX - document.getElementById("panelGameBoard").getBoundingClientRect().left,
+                y : e.clientY - document.getElementById("panelGameBoard").getBoundingClientRect().top
+            };
+
+            if(TOUCH_DEBUG) {
+                console.log("boardCoords: " + boardCoords.x + ", " + boardCoords.y);
+            }
+
+            var targetRailIndex = gameEngine.gameBoard.getRailIndexFromBoardCoords(boardCoords);
+
+            if(TOUCH_DEBUG) {
+                console.log(targetRailIndex);
+            }
+
+            if(targetRailIndex != null) {
+                this._points[pID].setSwipeHandler(function() {
+                    gameEngine.gameBoard.slideRail(targetRailIndex);
+                });
+            }
+
             if(TOUCH_DEBUG) {
                 console.log("Created touch point for pID: " + pID + ", at: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y + " with target: " + e.target.getAttribute("data-column"));
             }
@@ -79,10 +100,6 @@ Object.defineProperties(TouchPointManager.prototype, {
             var pID = e.pointerId || 0;
             if(this._points[pID]) {
                 this._points[pID].move(e.clientX, e.clientY);
-            }
-
-            if(TOUCH_DEBUG) {
-                console.log("Moving touch point for pID: " + pID + ", to: " + this._points[pID].getCurrentPosition().x + ", " + this._points[pID].getCurrentPosition().y)
             }
         }
     },
