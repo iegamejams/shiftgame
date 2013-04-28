@@ -4,7 +4,7 @@
 
 function AdGenerator() {
     this._ads = ["Feeling out of Shape?  Try our new Circle Peg!",
-    "Are you a bit Round?  Try our new Square program! Guaranteed to tone your body in 30 days or your money back!",
+    "Are you a bit Round?  Try our new Square program! Guaranteed to tone your shape in 30 days or your money back!",
     "Are you Blue?  We have a new Yellow for you!"];
     this._adSwitch = 1875;
     this.ct = 0;
