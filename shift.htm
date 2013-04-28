@@ -87,9 +87,6 @@
 
             window.blackSquare = new HealthBlock("blackSquare");
 
-            // Start first level
-            gameEngine.advanceLevel();
-
             // Set up the sound manager
             PopupManager.initPopups(document.getElementById("popupManager"), "popup");
             SoundManager.setupAudio("soundManager", "audioSingles", "audioInstances");
@@ -98,7 +95,12 @@
             requestAnimationFrame(GameLoop);
 
             // But immediately pause the game for the intro screen
-            PopupManager.showPopup("popupIntro");
+            PopupManager.showPopup("popupIntro", StartGame);
+        }
+
+        function StartGame() {
+            // Start first level
+            gameEngine.advanceLevel();
         }
 
         function GameLoop() {
@@ -193,11 +195,25 @@
             <div id="popupIntro_Malevich"></div>
         </div>
 
+        <!-- Level Popup -->
+        <div id="popupLevel" class="popup">
+            <div id="popupLevel_Frame" class="popupFrame">
+                <div id="popupLevel_Title">Level <span id="popupLevel_Level"></span></div>
+                <div id="popupLevel_StudentTitle">Student:</div>
+                <div id="popupLevel_StudentSaying"></div>
+
+                <div id="popupLevel_MasterTitle">Master:</div>
+                <div id="popupLevel_MasterSaying"></div>
+
+                <div id="popupLevel_Enlightened">... and the student was enlightened.</div>
+            </div>
+        </div>
+
         <!-- Credits Menu -->
         <div id="popupCredits" class="popup">
-            <div id="popupCredits_Frame">
-                <div id="popupCredits_Title">One Should Not Required Credit</div>
-                <div id="popupCredits_Title">For That Which One Is Born To Do.</div>
+            <div id="popupCredits_Frame" class="popupFrame">
+                <div class="popupCredits_Title">One Should Not Required Credit</div>
+                <div class="popupCredits_Title">For That Which One Is Born To Do.</div>
                 <table id="popupCredits_Table">
                     <tr>
                         <td>Project Coordinator</td>
@@ -218,6 +234,21 @@
                         <td>HR: Touch Advisor</td>
                         <td></td>
                         <td>Matt Rakow</td>
+                    </tr>
+                    <tr>
+                        <td>Square Coder</td>
+                        <td></td>
+                        <td>Tyler Arehart</td>
+                    </tr>
+                    <tr>
+                        <td>Brogrammer</td>
+                        <td></td>
+                        <td>Will Kennedy</td>
+                    </tr>
+                    <tr>
+                        <td>{ Waves }</td>
+                        <td></td>
+                        <td>Sandy Roberts</td>
                     </tr>
                 </table>
             </div>

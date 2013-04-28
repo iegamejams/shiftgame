@@ -26,6 +26,16 @@ PopupManager = (function () {
                 });
             }
         },
+        getPopup: {
+            value: function getPopup(popupId) {
+                if (_popups[popupId]) {
+                    return _popups[popupId];
+                }
+                else {
+                    throw "No popup with id " + popupId + ". You should make one!";
+                }
+            }
+        },
         showPopup: {
             value: function showPopup(popupId, hideCallback) {
                 if (_currentPopup) {
@@ -52,7 +62,12 @@ PopupManager = (function () {
                     _uiPopupMgr.className = UIElement.removeClass(_uiPopupMgr.className, "visible");
                     _currentPopup.className = UIElement.removeClass(_currentPopup.className, "visible");
                     _currentPopup = null;
-                    _hideCallback = null;
+                    
+                    if (_hideCallback) {
+                        var hideCallback = _hideCallback;
+                        _hideCallback = null;
+                        hideCallback();
+                    }
                 }
                 else {
                     throw "Trying to hide a popup with id " + popupId + " that isn't showing.";

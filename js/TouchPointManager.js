@@ -1,4 +1,4 @@
-﻿"use strict";
+"use strict";
 
 var TOUCH_DEBUG = false;
 
@@ -57,7 +57,10 @@ Object.defineProperties(TouchPointManager.prototype, {
                 console.log("boardCoords: " + boardCoords.x + ", " + boardCoords.y);
             }
 
-            var targetRailIndex = gameEngine.gameBoard.getRailIndexFromBoardCoords(boardCoords);
+            var targetRailIndex = null;
+            if (gameEngine && gameEngine.gameBoard) {
+                targetRailIndex = gameEngine.gameBoard.getRailIndexFromBoardCoords(boardCoords);
+            }
 
             if(TOUCH_DEBUG) {
                 console.log(targetRailIndex);

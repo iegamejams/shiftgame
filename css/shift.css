@@ -226,7 +226,15 @@ body {
     vertical-align: middle;
 }
 
-#popupCredits_Frame {
+#popupLevel {
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#popupManager .popupFrame {
     display: inline-block;
     width: 912px;
     height: 512px;
@@ -240,8 +248,64 @@ body {
     margin-top: 30px;
     width: 100%;
 }
-#popupCredits_Title {
+.popupCredits_Title {
     font-family: Calibri;
     font-weight: bold;
     font-size: 28pt;
 }
+
+#popupLevel_Frame {
+    text-align: left;
+}
+
+#popupLevel_Title {
+    text-align: center;
+    font-size: 36pt;
+    font-weight: bold;
+}
+
+#popupLevel_StudentTitle {
+    padding-left: 60px;
+    margin-top: 30px;
+    font-size: 24pt;
+    font-weight: bold;
+}
+#popupLevel_StudentSaying {
+    margin-left: 100px;
+    display: inline-block;
+    width: 300px;
+    font-size: 18pt;
+    font-style: italic;
+}
+#popupLevel_MasterTitle {
+    padding-left: 300px;
+    margin-top: 30px;
+    font-size: 24pt;
+    font-weight: bold;
+}
+#popupLevel_MasterSaying {
+    display: inline-block;
+    margin-left: 340px;
+    width: 300px;
+    font-size: 18pt;
+    font-style: italic;
+}
+
+#popupLevel_Enlightened {
+    position: absolute;
+    bottom: 80px;
+    right: 140px;
+    font-size: 24pt;
+    font-style: italic;
+}
+
+            <div id="popupLevel_Frame" class="popupFrame">
+                <div id="popupLevel_Title">Level <span id="popupLevel_Level"></span></div>
+                <div id="popupLevel_StudentTitle">Student says:</div>
+                <div id="popupLevel_StudentSaying"></div>
+
+                <div id="popupLevel_MasterTitle">Master says:</div>
+                <div id="popupLevel_MasterSaying">Master says:</div>
+
+                <div id="popupLevel_Enlightened">... and the student was enlightened.</div>
+            </div>

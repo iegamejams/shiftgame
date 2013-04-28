@@ -8,6 +8,7 @@ function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameB
     this.eventHandlers = {};
     this.uiGameBoard = uiGameBoard;
     this.uiPieceHints = uiPieceHints;
+    this.winCalled = false;
     this.shapeArray = [];
     
     // The game board and wave generator will be constructed and assigned during advanceLevel.
@@ -38,7 +39,8 @@ Object.defineProperties(GameEngine.prototype, {
             }
             else {
                 this.levelInProgress = false;
-                this.dispatchEvent("Win");
+                this.winCalled = true;
+                // this.dispatchEvent("Win");
             }
         }
     },
@@ -48,6 +50,20 @@ Object.defineProperties(GameEngine.prototype, {
             this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level], this);
             this.waveProgress.initUI(this.waveGenerator);
+            
+            this.setupLevelPopup();
+        }
+    },
+    setupLevelPopup: {
+        value: function setupLevelPopup() {
+            var popupLevel = PopupManager.getPopup("popupLevel");
+            var levelData = this.levelData[this.level];
+
+            popupLevel.querySelector("#popupLevel_Level").innerText = this.level + 1;
+            popupLevel.querySelector("#popupLevel_StudentSaying").innerText = levelData.student;
+            popupLevel.querySelector("#popupLevel_MasterSaying").innerText = levelData.teacher;
+            
+            PopupManager.showPopup("popupLevel");
         }
     },
 
