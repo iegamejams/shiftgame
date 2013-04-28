@@ -116,7 +116,7 @@ Object.defineProperties(GameEngine.prototype, {
         value: function spawnBro(row, shapeIndex, colorIndex) {
             // Spawn a bro
             var newShape = new Shape(Shape.types[shapeIndex], colorIndex);
-            newShape.top = (row * 63) + 8;
+            newShape.top = (row * 64) + 6;
             newShape.left = 700;
             this.shapeArray.push(newShape);
             this.gameBoard._uiElement.appendChild(newShape._uiElement);
