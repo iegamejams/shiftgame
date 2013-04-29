@@ -62,5 +62,8 @@ Object.defineProperties(Shape, {
     },
     colors : {
         value: ["red", "blue", "green", "yellow", "orange", "purple", "white"]
+    },
+    colorVals: {
+        value: [[255, 0, 0], [0, 0, 255], [0, 255, 0], [255, 255, 0], [255, 165, 0], [128, 0, 128], [255, 255, 255]]
     }
 });

@@ -16,10 +16,10 @@ HealthBlock.prototype.constructor = HealthBlock;
 Object.defineProperties(HealthBlock.prototype, {
     addColor: {
         // We're expecting values ranging from 0 to 255.
-        value: function addColor(r, g, b) {
-            this.red = Math.min(this.red + r, 255);
-            this.green = Math.min(this.green + g, 255);
-            this.blue = Math.min(this.blue + b, 255);
+        value: function addColor(arrayOfColor) {
+            this.red = Math.min(this.red + arrayOfColor[0], 255);
+            this.green = Math.min(this.green + arrayOfColor[1], 255);
+            this.blue = Math.min(this.blue + arrayOfColor[2], 255);
 
             this.uiElement.style.backgroundColor = "rgb(" + this.red + ", " + this.green + ", " + this.blue + ")"
 
