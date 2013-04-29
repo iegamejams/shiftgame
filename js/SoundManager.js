@@ -20,26 +20,31 @@ var SoundManager = (function () {
 
     function _playInternal(clipId) {
         if (_singles[clipId]) {
-            if (_currentSingle) {
-                _currentSingle.pause();
+            try {
+                if (_currentSingle) {
+                    try {
+                        _currentSingle.pause();
+                        _currentSingle.currentTime = 0;
+                    } catch (exc) { }
+                    _currentSingle = undefined;
+                }
+
+                _currentSingle = _singles[clipId];
                 try {
                     _currentSingle.currentTime = 0;
                 } catch (exc) { }
-                _currentSingle = undefined;
-            }
 
-            _currentSingle = _singles[clipId];
-            try {
-                _currentSingle.currentTime = 0;
-            } catch (exc) { }
-
-            // We can't set the volume until after we've started playing?
-            _currentSingle.play();
-            if (_mute) {
-                _currentSingle.volume = 0;
+                // We can't set the volume until after we've started playing?
+                _currentSingle.play();
+                if (_mute) {
+                    _currentSingle.volume = 0;
+                }
+                else {
+                    _currentSingle.volume = _volumeMusic;
+                }
             }
-            else {
-                _currentSingle.volume = _volumeMusic;
+            catch (exc) {
+                // Ignore audio playback failures for now.
             }
         }
         else if (_instances[clipId]) {
