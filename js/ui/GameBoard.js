@@ -115,7 +115,7 @@ Object.defineProperties(GameBoard.prototype, {
     getRailIndexFromBoardCoords : {
         value : function(point) {
             // update this if the magic numbers change :)
-            if(point.x >= 192 && point.x < 768 && point.y >= 0 && point.y < 448) {
+            if(point.x >= 128 && point.x < 768 && point.y >= 0 && point.y < 448) {
                 return parseInt(point.x / 64) - 4;
             }
             return null;
