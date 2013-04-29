@@ -113,6 +113,13 @@ var SoundManager = (function () {
                 _playInternal(clipId);
             }
         },
+        playMusicRandom: {
+            value: function playMusicRandom() {
+                var allSingles = Object.keys(_singles);
+                var randomSingle = Math.floor(Math.random() * allSingles.length);
+                this.playMusic(allSingles[randomSingle]);
+            }
+        },
         play: {
             value: function play(clipId) {
                 if (_fUsingDebugSounds) {

@@ -62,6 +62,8 @@ Object.defineProperties(GameEngine.prototype, {
             // WaveProgressUI will update its own client area
             this.waveProgress.initUI(this.waveGenerator);
             
+            SoundManager.playMusicRandom();
+            
             this.setupLevelPopup();
         }
     },
