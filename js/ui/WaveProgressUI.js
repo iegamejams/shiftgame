@@ -21,7 +21,7 @@ Object.defineProperties(WaveProgressUI.prototype, {
             }
 
             // Add new sub-wave elements
-            this.subSaveElements = [];
+            this.subWaveElements = [];
             var subWaves = waveGenerator.subWaves;
             subWaves.forEach(function (subWave) {
                 var subWaveElement = document.createElement("div");
