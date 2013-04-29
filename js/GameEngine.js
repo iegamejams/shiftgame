@@ -1,6 +1,6 @@
 "use strict";
 
-function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameBoard, uiPieceHints) {
+function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameBoard, uiPieceHints, uiBlockerPanel) {
     // Pre-define all properties because once we preventExtensions on the object we can't add anymore.
     this.level = -1;
     this.levelData = levelData;
@@ -8,6 +8,7 @@ function GameEngine(levelData, uiBlackSquare, uiWaveProgress, uiSliders, uiGameB
     this.eventHandlers = {};
     this.uiGameBoard = uiGameBoard;
     this.uiPieceHints = uiPieceHints;
+    this.uiBlockerPanel = uiBlockerPanel;
     this.winCalled = false;
     this.shapeArray = [];
     this.clickSounds = ["boop1", "boop2", "boop3"];
@@ -49,8 +50,16 @@ Object.defineProperties(GameEngine.prototype, {
     restartLevel: {
         value: function restartLevel() {
             this.levelInProgress = true;
-            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this, 8, 7, this.levelData[this.level].pegSpawnPercent, this.levelData[this.level].shapes, this.levelData[this.level].colors);
+            
+            // Gameboard UI needs to be cleaned up explicitly
+            if (this.gameBoard) {
+                this.gameBoard.destroyUI();
+            }
+            
+            this.gameBoard = new GameBoard(this.uiGameBoard, this.uiPieceHints, this.uiBlockerPanel, this, 8, 7, this.levelData[this.level].pegSpawnPercent, this.levelData[this.level].shapes, this.levelData[this.level].colors);
             this.waveGenerator = new WaveGenerator(this.levelData[this.level], this);
+            
+            // WaveProgressUI will update its own client area
             this.waveProgress.initUI(this.waveGenerator);
             
             this.setupLevelPopup();
@@ -85,52 +94,57 @@ Object.defineProperties(GameEngine.prototype, {
                 this.gameBoard.processTick();
                 this.waveGenerator.processTick();
                 
-                // Update all of our UI states
-                this.waveProgress.updateUI(this.waveGenerator);
-
-                //For Each Shape Object in our collection, process Tick
-                for (var i = 0; i < this.shapeArray.length; i++) {
-                    this.shapeArray[i].processTick();
-                    if (this.shapeArray[i].left < -50) {
-                        var shapeToRemove = this.shapeArray.splice(i, 1)[0];
-                        this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
-                    }
+                if (this.waveGenerator.complete && this.shapeArray.length === 0) {
+                    this.advanceLevel();
                 }
+                else {
+                    // Update all of our UI states
+                    this.waveProgress.updateUI(this.waveGenerator);
 
-                //TODO: Process Collisions here
-                for (var i = 0; i < this.shapeArray.length; i++) {
-                    var point = new Object();
-                    point.x = this.shapeArray[i].left;
-                    point.y = this.shapeArray[i].top;
-                    var rowNumber = this.gameBoard.getRailIndexFromBoardCoords(point);
-                    var slotNumber = this.gameBoard.getSlotIndexFromBoardCoords(point);
-                    if (rowNumber === -1) { // Blocker row
-                        var blocker = this.gameBoard.blockers[slotNumber];
-                        if (blocker.active) {
+                    //For Each Shape Object in our collection, process Tick
+                    for (var i = 0; i < this.shapeArray.length; i++) {
+                        this.shapeArray[i].processTick();
+                        if (this.shapeArray[i].left < -50) {
                             var shapeToRemove = this.shapeArray.splice(i, 1)[0];
                             this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
-                            if (shapeToRemove.colorEnum !== blocker.colorEnum) {
-                                blocker.active = false;
-                            }
                         }
-                        continue;
                     }
-                    if (rowNumber != null && slotNumber != null && rowNumber < 8) {
-                        var rail = this.gameBoard.rails[rowNumber];
-                        if (!rail.animating) {
-                            if (rail.children[slotNumber].children.length > 0) {
-                                if ((Math.abs((rowNumber*64) - (this.shapeArray[i].left - 256)) < 8) &&
-                                    rail.children[slotNumber].children[0].className.baseVal == "shape " + this.shapeArray[i].type) {
-                                    var shapeToRemove = this.shapeArray.splice(i, 1)[0];
-                                    this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
-                                    rail.children[slotNumber].removeChild(rail.children[slotNumber].children[0]);
+
+                    //TODO: Process Collisions here
+                    for (var i = 0; i < this.shapeArray.length; i++) {
+                        var point = new Object();
+                        point.x = this.shapeArray[i].left;
+                        point.y = this.shapeArray[i].top;
+                        var rowNumber = this.gameBoard.getRailIndexFromBoardCoords(point);
+                        var slotNumber = this.gameBoard.getSlotIndexFromBoardCoords(point);
+                        if (rowNumber === -1) { // Blocker row
+                            var blocker = this.gameBoard.blockers[slotNumber];
+                            if (blocker.active) {
+                                var shapeToRemove = this.shapeArray.splice(i, 1)[0];
+                                this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
+                                if (shapeToRemove.colorEnum !== blocker.colorEnum) {
+                                    blocker.active = false;
+                                }
+                            }
+                            continue;
+                        }
+                        if (rowNumber != null && slotNumber != null && rowNumber < 8) {
+                            var rail = this.gameBoard.rails[rowNumber];
+                            if (!rail.animating) {
+                                if (rail.children[slotNumber].children.length > 0) {
+                                    if ((Math.abs((rowNumber*64) - (this.shapeArray[i].left - 256)) < 8) &&
+                                        rail.children[slotNumber].children[0].className.baseVal == "shape " + this.shapeArray[i].type) {
+                                        var shapeToRemove = this.shapeArray.splice(i, 1)[0];
+                                        this.gameBoard._uiElement.removeChild(shapeToRemove._uiElement);
+                                        rail.children[slotNumber].removeChild(rail.children[slotNumber].children[0]);
+                                    }
                                 }
                             }
                         }
-                    }
 
+                    }
                 }
-                
+
                 // Determine that we need another requestAnimationFrame();
                 return true;
             }

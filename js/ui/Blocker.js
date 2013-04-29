@@ -1,7 +1,6 @@
 "use strict"
 
-function Blocker(colorEnum) {
-    
+function Blocker(uiBlockerPanel, colorEnum) {
     // "Private"
     this._active = true;
     
@@ -10,7 +9,8 @@ function Blocker(colorEnum) {
     this.elm = document.createElement("div");
     this.elm.className = "blocker";
     this.elm.style.background = Shape.colors[colorEnum];
-    document.querySelector("#panelBlockers").appendChild(this.elm);
+    
+    uiBlockerPanel.appendChild(this.elm);
     
     return Object.preventExtensions(this);
 }

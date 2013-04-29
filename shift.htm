@@ -35,6 +35,12 @@
         var gameEngine;
         var sliderUI;
         var levelData = [
+/* Test Stage
+            new Level(300, 1500, 2, 3, 7, 1, 0.5,
+                [new SubWave(600, 300, 0.8)],
+                "Why do my attempts to move the pieces always end up the same way.",
+                "In life one can only move forward."),
+*/
             new Level(300, 3600, 2, 3, 7, 1, 0.5,
                 [new SubWave(1800, 600, 0.8)],
                 "Why do my attempts to move the pieces always end up the same way.",
@@ -84,7 +90,8 @@
                 document.getElementById("waveProgressUI"),
                 document.getElementById("sliderUI"),
                 document.getElementById("panelGameBoard"),
-                document.getElementById("panelPieceHints"));
+                document.getElementById("panelPieceHints"),
+                document.getElementById("panelBlockers"));
 
             window.blackSquare = new HealthBlock("blackSquare");
 

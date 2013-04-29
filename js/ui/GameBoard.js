@@ -1,6 +1,6 @@
 "use strict"
 
-function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawnPercent, pegMaxShape, pegMaxColor) {
+function GameBoard(uiElement, uiHintElement, uiBlockerPanel, gameEngine, width, height, pegSpawnPercent, pegMaxShape, pegMaxColor) {
     UIElement.call(this, uiElement);
 
     // Private
@@ -26,6 +26,7 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
     this.blockers = [];
     this.gameEngine = gameEngine;
     this.uiHintElement = uiHintElement;
+    this.uiBlockerPanel = uiBlockerPanel;
     this.pegSpawnPercent = pegSpawnPercent;
     this.pegMaxShape = pegMaxShape;
     this.pegMaxColor = pegMaxColor;
@@ -44,7 +45,7 @@ function GameBoard(uiElement, uiHintElement, gameEngine, width, height, pegSpawn
     }
     
     for (var i = 0; i < height; i++) {
-        this.blockers.push(new Blocker(Math.floor(Math.random() * this.pegMaxColor)));
+        this.blockers.push(new Blocker(this.uiBlockerPanel, Math.floor(Math.random() * this.pegMaxColor)));
     }
     
     return Object.preventExtensions(this);
@@ -54,6 +55,15 @@ GameBoard.prototype = Object.create(UIElement.prototype);
 GameBoard.prototype.constructor = GameBoard;
 
 Object.defineProperties(GameBoard.prototype, {
+    destroyUI: {
+        value: function destroyUI() {
+            this.rails.forEach(function (rail) {
+                this._uiElement.removeChild(rail);
+            }, this);
+            this.uiHintElement.innerText = "";
+            this.uiBlockerPanel.innerText = "";
+        }
+    },
     createSlot : {
         value : function(gamestarted, rowNumber) {
             var slot = document.querySelector("#templates .slot").cloneNode(true);

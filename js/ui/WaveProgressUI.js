@@ -15,7 +15,9 @@ Object.defineProperties(WaveProgressUI.prototype, {
     initUI: {
         value: function initUI(waveGenerator) {
             if (this.subWaveElements) {
-                // Remove existing subWaveElements
+                [].forEach.call(this.subWaveElements, function (subWaveElement) {
+                    this.uiProgressBar.removeChild(subWaveElement);
+                }, this);
             }
 
             // Add new sub-wave elements
